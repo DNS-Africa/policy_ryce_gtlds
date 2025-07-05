@@ -1,0 +1,1412 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<pc:policyConfig xmlns:pc="urn:ietf:params:xml:ns:dns:policyconf">
+  <pc:copyright>(c) Domain Name Services (Pty) Ltd. 2010-2025. All rights reserved.</pc:copyright>
+  <pc:policyParameters pc:policyIdentifier="ryce" pc:version="gTLDs-Rev-1.0">
+    <pc:constants>
+      <pc:values pc:name="GracePeriod" pc:comment="The registration grace period">5 days</pc:values>
+      <pc:values pc:name="PolicyPeriod" pc:comment="Eg. the suspension and deletion - typically in days">5 days</pc:values>
+      <pc:values pc:name="NameserverCheckTimeout" pc:comment="dig has a default of 5 and nslookup is 2 we took the most conservative.">5</pc:values>
+      <pc:values pc:name="NameserverCheckRetries" pc:comment="Rather get back to the ISP and let them know of the problem than keep retrying, the create is easily resubmitted.">2</pc:values>
+      <pc:values pc:name="NameserverCheckPeriod" pc:comment="The period between failed nameserver checks">1 hour</pc:values>
+      <pc:values pc:name="NameserverCount" pc:comment="The minimum amount of nameservers required">0</pc:values>
+      <pc:values pc:name="ContactCPA" pc:comment="">//cozac:update/@cancelPendingAction</pc:values>
+      <pc:values pc:name="DomainUpdateRantXpath" pc:comment="Xpath for registrant change in domain update.">//domain:update/domain:chg/domain:registrant</pc:values>
+      <pc:values pc:name="accountemail" pc:comment="Where account related issues go">support@dnservices.co.za</pc:values>
+      <pc:values pc:name="techemail" pc:comment="Where tech related issues go">support@dnservices.co.za</pc:values>
+      <pc:values pc:name="DomainUpdateNameserversXPath" pc:comment="Does the payload contain NS changes">//domain:ns</pc:values>
+      <pc:values pc:name="RedemptionPeriod" pc:comment="Amount of time redemption period will last">30 days</pc:values>
+      <pc:values pc:name="RedemptionMessage" pc:comment="Message set to status when domain enters closed redemption">Domain in closed redemption</pc:values>
+      <pc:values pc:name="NSCheckDelay" pc:comment="Delay the NS check to prevent status concurrency handling with pendingFSCharge">45 seconds</pc:values>
+      <pc:values pc:name="CreateServerHoldMessage" pc:comment="This status message is set on domain create">Domain Created, billing pending</pc:values>
+      <pc:values pc:name="SUNRISE_PRODUCT_CODE" pc:comment="Sunrise charge for a new registration">capetown_sunrise</pc:values>
+      <pc:values pc:name="LaunchStart" pc:comment="Start of launch">1 July 2014</pc:values>
+      <pc:values pc:name="SunriseEnd" pc:comment="Due to the 'hour' grain we need to specify absolute time">1 October 2014 23:59:59</pc:values>
+      <pc:values pc:name="LandrushEnd" pc:comment="Due to the 'hour' grain we need to specify absolute time">3 November 2014 23:59:59</pc:values>
+      <pc:values pc:name="GeneralAvailabilityStart" pc:comment="And Claims Period start">4 November 2014 08:00:00</pc:values>
+      <pc:values pc:name="ClaimsPeriodEnd" pc:comment="Due to the 'hour' grain we need to specify absolute time">3 February 2015 23:59:59</pc:values>
+      <pc:values pc:name="SunriseAuctionEnd" pc:comment="Due to the 'hour' grain we need to specify absolute time">8 October 2014 23:59:59</pc:values>
+      <pc:values pc:name="LandrushAuctionEnd" pc:comment="Due to the 'hour' grain we need to specify absolute time">10 November 2014 23:59:59</pc:values>
+      <pc:values pc:name="REGISTRATION_PRODUCT_CODE" pc:comment="The product code for a new registration">wien_new</pc:values>
+      <pc:values pc:name="RENEWAL_PRODUCT_CODE" pc:comment="The product code for rewals of domains">wien_renew</pc:values>
+      <pc:values pc:name="LANDRUSH_PREMIUM_PRODUCT_CODE" pc:comment="The premium name charge id the domain is applied for in landrush">wien_landrush_premium</pc:values>
+      <pc:values pc:name="TRANSFER_PRODUCT_CODE" pc:comment="The product code for a successful 1 year increase due to transfer">wien_transfer</pc:values>
+      <pc:values pc:name="JURISDICTION" pc:comment="The continent or country codes which receive a higher priority in application">['za']</pc:values>
+      <pc:values pc:name="CREATE_AUCTION_URL" pc:comment="">https://auctions.registry.net.za/goto_auction.php</pc:values>
+      <pc:values pc:name="RESULT_AUCTION_URL" pc:comment="">https://auctions.registry.net.za/validate_auction_result.php</pc:values>
+      <pc:values pc:name="MaxNameserverCount" pc:comment="">13</pc:values>
+      <pc:values pc:name="PREMIUM_NAME_PRODUCT_CODE" pc:comment="GA premium name charge">wien_premium</pc:values>
+      <pc:values pc:name="TRANSFER_GRACE_PERIOD" pc:comment="">60 days</pc:values>
+      <pc:values pc:name="NonBillableRegistrars" pc:comment="A list of registrars that must not be billed">['dnservices', 'icann_sla']</pc:values>
+      <pc:values pc:name="CreateNameCollisionMessage" pc:comment="This message is set on name collision names registered during launch and claims">Domain withheld, pending name collision rest period</pc:values>
+      <pc:values pc:name="NCPEnd" pc:comment="Name Collision Period End.">1 December 2014 08:00:00</pc:values>
+      <pc:values pc:name="PROXY_PREMIUM_NAME_PRODUCT_CODE" pc:comment="">wien_proxy_premium</pc:values>
+      <pc:values pc:name="PROXY_RENEWAL_PRODUCT_CODE" pc:comment="">wien_proxy_renew</pc:values>
+      <pc:values pc:name="PROXY_TRANSFER_PRODUCT_CODE" pc:comment="">wien_proxy_transfer</pc:values>
+      <pc:values pc:name="PROXY_CLOSED_REDEMPTION_PRODUCT_CODE" pc:comment="">wien_proxy_closed_redeem</pc:values>
+      <pc:values pc:name="PROXY_REGISTRATION_PRODUCT_CODE" pc:comment="">wien_proxy_new</pc:values>
+      <pc:values pc:name="PROXY_SUNRISE_PRODUCT_CODE" pc:comment="">wien_proxy_sunrise</pc:values>
+      <pc:values pc:name="PROXY_LANDRUSH_PREMIUM_PRODUCT_CODE" pc:comment="">wien_proxy_landrush_premium</pc:values>
+      <pc:values pc:name="PROXY_LANDRUSH_PRODUCT_CODE" pc:comment="">wien_proxy_landrush</pc:values>
+      <pc:values pc:name="NULL_TRANSFER_PRODUCT_CODE" pc:comment="">wien_transfer_null</pc:values>
+      <pc:values pc:name="PROXY_PREMIUM_CHARGE" pc:comment="">wien_proxy_premium_charge</pc:values>
+      <pc:values pc:name="PROXY_RENEWAL_CHARGE" pc:comment="">wien_proxy_renew_charge</pc:values>
+      <pc:values pc:name="PROXY_TRANSFER_CHARGE" pc:comment="">wien_proxy_transfer_charge</pc:values>
+      <pc:values pc:name="PROXY_REGISTRATION_CHARGE" pc:comment="">wien_proxy_new_charge</pc:values>
+      <pc:values pc:name="PROXY_CLOSED_REDEMPTION_CHARGE" pc:comment="">wien_proxy_closed_redeem_charge</pc:values>
+      <pc:values pc:name="PROXY_SUNRISE_PREMIUM_CHARGE" pc:comment="">wien_proxy_sunrise_premium_charge</pc:values>
+      <pc:values pc:name="PROXY_SUNRISE_CHARGE" pc:comment="">wien_proxy_sunrise_charge</pc:values>
+      <pc:values pc:name="PROXY_LANDRUSH_PREMIUM_CHARGE" pc:comment="">wien_proxy_landrush_premium_charge</pc:values>
+      <pc:values pc:name="PROXY_LANDRUSH_CHARGE" pc:comment="">wien_proxy_landrush_charge</pc:values>
+      <pc:values pc:name="SALE_PRODUCT_CODE" pc:comment="">wien_sale</pc:values>
+      <pc:values pc:name="PROXY_SALE_PRODUCT_CODE" pc:comment="">wien_proxy_sale</pc:values>
+      <pc:values pc:name="PROXY_SALE_CHARGE" pc:comment="">wien_proxy_sale_charge</pc:values>
+      <pc:values pc:name="SALE_START" pc:comment="Inclusive">2016-11-07</pc:values>
+      <pc:values pc:name="SALE_END" pc:comment="Inclusive">2017-01-07</pc:values>
+      <pc:values pc:name="RESTORE_PRODUCT_CODE" pc:comment="The cost to restore an expired domain name.">wien_restore</pc:values>
+      <pc:values pc:name="RestoreReportPeriod" pc:comment="The amount of time allowed to receive a restore report.">7 days</pc:values>
+      <pc:values pc:name="AutoRenewPeriod" pc:comment="The duration of the RGP autorenew period">45 days</pc:values>
+    </pc:constants>
+    <pc:libraries>
+      <pc:library pc:name="PolicyExec" pc:path="elib.PolicyExec" pc:prefix="PolicyExec" pc:type="Python"/>
+      <pc:library pc:name="DomainPolicy" pc:path="elib.DomainPolicy" pc:prefix="DomainPolicy" pc:type="Python"/>
+      <pc:library pc:name="ContactPolicy" pc:path="elib.ContactPolicy" pc:prefix="ContactPolicy" pc:type="Python"/>
+      <pc:library pc:name="HostPolicy" pc:path="elib.HostPolicy" pc:prefix="HostPolicy" pc:type="Python"/>
+      <pc:library pc:name="StandardCommands" pc:path="StandardCommands" pc:prefix="StandardCommands" pc:type="Python"/>
+      <pc:library pc:name="Accounts" pc:path="elib.Accounts" pc:prefix="Accounts" pc:type="Python"/>
+      <pc:library pc:name="RNLPolicy" pc:path="elib.RNLPolicy" pc:prefix="RNLPolicy" pc:type="Python"/>
+      <pc:library pc:name="LaunchCommands" pc:path="LaunchCommands" pc:prefix="LaunchCommands" pc:type="Python"/>
+      <pc:library pc:name="ChargeCommands" pc:path="ChargeCommands" pc:prefix="ChargeCommands" pc:type="Python"/>
+      <pc:library pc:name="LaunchPolicy" pc:path="elib.LaunchPolicy" pc:prefix="LaunchPolicy" pc:type="Python"/>
+      <pc:library pc:name="AuctionPolicy" pc:path="elib.AuctionPolicy" pc:prefix="AuctionPolicy" pc:type="Python"/>
+      <pc:library pc:name="FeesCommands" pc:path="FeesCommands" pc:prefix="FeesCommands" pc:type="Python"/>
+    </pc:libraries>
+    <pc:constraints>
+      <pc:policylimit pc:xpath="//domain:name" pc:minlen="1" pc:maxlen="72" pc:regex="[a-z0-9][a-z-0-9]*\.wien$"/>
+      <pc:policylimit pc:xpath="//contact:create/contact:street" pc:minlen="8" pc:maxlen="255"/>
+      <pc:policylimit pc:xpath="//domain:create/domain:ns/domain:hostObj | //domain:create/domain:ns/domain:hostAttr/domain:hostName" pc:maxlen="255" pc:mincount="0" pc:maxcount="13" pc:desc="A minimum of zero and a maximum of thirteen nameservers are required."/>
+      <pc:policylimit pc:xpath="//contact:create/contact:addr/contact:city" pc:minlen="2" pc:maxlen="255"/>
+      <pc:policylimit pc:xpath="//contact:create/contact:addr/contact:sp" pc:minlen="2" pc:maxlen="255"/>
+      <pc:policylimit pc:xpath="//contact:create/contact:email" pc:minlen="1" pc:maxlen="255" pc:mincount="1" pc:regex="[A-Z0-9a-z._%-]+@[A-Z0-9a-z.\-]+"/>
+      <pc:policylimit pc:xpath="//domain:create/domain:registrant" pc:minlen="3" pc:maxlen="16" pc:mincount="1" pc:maxcount="1" pc:regex="" pc:code="2306" pc:desc="Registrant required."/>
+      <pc:policylimit pc:xpath="//contact:create/contact:voice" pc:minlen="1" pc:maxlen="17" pc:mincount="1" pc:maxcount="1" pc:regex="((((?!\+27\.[0-9]{1})\+[0-9]{1,3}\.[0-9]{1})|(\+27\.[1-9]{1}))[0-9]{0,13})?" pc:code="2306" pc:desc="Contact telephone field required or incorrect format."/>
+      <pc:policylimit pc:xpath="//domain:check/domain:name" pc:maxcount="100" pc:regex="" pc:code="2306" pc:desc="Domain check limitation exceeded"/>
+      <pc:policylimit pc:xpath="//domain:hostObj | //domain:hostName" pc:minlen="0" pc:maxlen="255" pc:mincount="0" pc:maxcount="0" pc:regex="^[A-Za-z-0-9\.]*$" pc:code="2306" pc:desc=""/>
+      <pc:policylimit pc:xpath="//domain:create/domain:period/@unit" pc:minlen="1" pc:maxlen="1" pc:regex="^[yY]$" pc:code="2306" pc:desc="Domain period unit 'm' not supported"/>
+      <pc:policylimit pc:xpath="//domain:create/domain:period[@unit=&quot;y&quot;]" pc:minlen="1" pc:maxlen="2" pc:regex="^([1-9]|10)$" pc:code="2306" pc:desc="Domain period must be between 1 and 10 years"/>
+      <pc:policylimit pc:xpath="//domain:create/domain:contact[@type=&quot;admin&quot;]" pc:minlen="3" pc:maxlen="255" pc:mincount="0" pc:maxcount="1" pc:code="2306" pc:desc="Single Administrative contact optional with 3 to 255 characters."/>
+      <pc:policylimit pc:xpath="//domain:create/domain:contact[@type=&quot;billing&quot;]" pc:minlen="3" pc:maxlen="255" pc:mincount="0" pc:maxcount="1" pc:code="2306" pc:desc="Single Billing contact optional with 3 to 255 characters."/>
+      <pc:policylimit pc:xpath="//domain:create/domain:contact[@type=&quot;tech&quot;]" pc:minlen="3" pc:maxlen="255" pc:mincount="0" pc:maxcount="1" pc:code="2306" pc:desc="Single Technical contact optional with 3 to 255 characters."/>
+      <pc:policylimit pc:xpath="//launch:check/@type" pc:minlen="0" pc:maxlen="0" pc:mincount="0" pc:maxcount="0" pc:regex="avail" pc:code="2306" pc:desc="Launch Check &quot;type&quot; attribute must be &quot;avail&quot;"/>
+      <pc:policylimit pc:xpath="//launch:create/smd:encodedSignedMark" pc:minlen="0" pc:maxlen="0" pc:mincount="1" pc:maxcount="1" pc:regex="" pc:code="2306" pc:desc=""/>
+      <pc:policylimit pc:xpath="//contact:update/contact:chg/contact:email" pc:minlen="3" pc:maxlen="255" pc:regex="[A-Z0-9a-z._%-]+@[A-Z0-9a-z.\-]+" pc:code="2306" pc:desc=""/>
+      <pc:policylimit pc:xpath="//domain:create/domain:contact" pc:mincount="2" pc:maxcount="10" pc:regex="" pc:code="2306" pc:desc="A minimum of 2 and a maximum 10 contacts allowed."/>
+      <pc:policylimit pc:xpath="//contact:authInfo/contact:pw" pc:minlen="0" pc:maxlen="0" pc:regex="" pc:code="2307" pc:desc="Contact authorization information is not supported."/>
+      <pc:policylimit pc:xpath="//contact:update/contact:authInfo/contact:pw" pc:minlen="0" pc:maxlen="0" pc:regex="" pc:code="2307" pc:desc="Contact authorization information is not supported."/>
+      <pc:policylimit pc:xpath="//contact:create/contact:id" pc:minlen="3" pc:maxlen="16" pc:regex="" pc:code="2306" pc:desc="Contact ID must be between 1 and 16 ASCII characters."/>
+      <pc:policylimit pc:xpath="//domain:transfer/domain:period" pc:minlen="0" pc:maxlen="1" pc:mincount="0" pc:maxcount="1" pc:regex="(1)" pc:code="2306" pc:desc="Transfer period must be 1 year"/>
+      <pc:policylimit pc:xpath="//domain:renew/domain:period/@unit" pc:minlen="1" pc:maxlen="1" pc:regex="^[yY]$" pc:code="2306" pc:desc="Domain period unit 'm' not supported"/>
+      <pc:policylimit pc:xpath="//contact:voice" pc:minlen="1" pc:maxlen="17" pc:regex="((((?!\+27\.[0-9]{1})\+[0-9]{1,3}\.[0-9]{1})|(\+27\.[1-9]{1}))[0-9]{0,13})?" pc:code="2306" pc:desc="Contact phone number requires E.164 formatting"/>
+      <pc:policylimit pc:xpath="//contact:fax" pc:minlen="1" pc:maxlen="17" pc:regex="((((?!\+27\.[0-9]{1})\+[0-9]{1,3}\.[0-9]{1})|(\+27\.[1-9]{1}))[0-9]{0,13})?" pc:code="2306" pc:desc="Contact fax number requires E.164 formatting"/>
+    </pc:constraints>
+  </pc:policyParameters>
+  <pc:objects pc:name="Domain">
+    <pc:events pc:name="Create">
+      <pc:activities pc:name="ExtensionUseCheck">
+        <pc:rules>#checks for the autorenew extension being used</pc:rules>
+        <pc:rules>#the extension is not allowed</pc:rules>
+        <pc:rules>if PolicyExec.payloadContains("//cozad:create/cozad:autorenew"):</pc:rules>
+        <pc:rules>  raise EPPError(2103, "Autorenew extension not supported")</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="AvailabilityCheck">
+        <pc:rules>DomainPolicy.isAvailable()</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="Validations">
+        <pc:children pc:name="RNLCheck">
+          <pc:rules>RNLPolicy.checkObject(ignoreCategories=[8100,8110,8120,8130,8140,8150,8160,8170,5200], throw=True)</pc:rules>
+        </pc:children>
+        <pc:children pc:name="ConstraintsCheck">
+          <pc:rules>PolicyExec.fieldConstraintsValidation()</pc:rules>
+        </pc:children>
+        <pc:children pc:name="DomainRegistrantCheck">
+          <pc:rules>DomainPolicy.registrantCheck()</pc:rules>
+        </pc:children>
+        <pc:children pc:name="DelegatedHostCheck">
+          <pc:rules>DomainPolicy.delegatedHostCheck()</pc:rules>
+        </pc:children>
+        <pc:children pc:name="ContactOwnershipCheck">
+          <pc:rules>ContactPolicy.ownershipCheck()</pc:rules>
+        </pc:children>
+        <pc:children pc:name="CheckIDN">
+          <pc:rules>DomainPolicy.validateIDN('latin')</pc:rules>
+        </pc:children>
+      </pc:activities>
+      <pc:activities pc:name="isPremiumName">
+        <pc:rules>#chaecks if the domain is a premium name</pc:rules>
+        <pc:branch pc:decision="RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150, 8160, 8170])">
+          <pc:answerTrue pc:name="AnswerTrue">
+            <pc:children pc:name="CheckPeriod">
+              <pc:rules>if not (PolicyExec.payloadContains("//domain:period[@unit='y' and text()='1']")):</pc:rules>
+              <pc:rules>  raise EPPError(2004, "Premium Registration Period must be 1 year")</pc:rules>
+            </pc:children>
+            <pc:children pc:name="VerifyChargeSupport">
+              <pc:rules>if ContactPolicy.checkRegistrarSupport('fee'):</pc:rules>
+              <pc:rules>  PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=PREMIUM_NAME_PRODUCT_CODE, defaultZone=None, defaultAction=None, orderDesc=False)</pc:rules>
+              <pc:rules>  FeesCommands.create(description='domain:create; refundable in addPeriod', applied='immediate', productCode=PRODUCT_CODE, gracePeriod='P5D', exVat=True, refundable=True, includePeriod=False, throw=True, currencyOverride=None)</pc:rules>
+              <pc:rules>else:</pc:rules>
+              <pc:rules>  raise EPPError(2103, "Fee extension registration required to register premium names")</pc:rules>
+            </pc:children>
+            <pc:children pc:name="AccountChargeCheckPremium">
+              <pc:rules>if PolicyExec.getRegistrar() not in NonBillableRegistrars:</pc:rules>
+              <pc:rules>  PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=PREMIUM_NAME_PRODUCT_CODE, defaultZone=None, defaultAction=None, orderDesc=False)</pc:rules>
+              <pc:rules>  Accounts.chargeCheck(PRODUCT_CODE)</pc:rules>
+            </pc:children>
+            <pc:children pc:name="FeeExtensionCheck">
+              <pc:rules>#check that the amount provided in the extension matches the cost</pc:rules>
+              <pc:rules>#if not then throw error for mismatch of payment amount</pc:rules>
+              <pc:rules>PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=PREMIUM_NAME_PRODUCT_CODE, defaultZone=None, defaultAction=None, orderDesc=False)</pc:rules>
+              <pc:rules>FeesCommands.create(description='domain:create; refundable in addPeriod', applied='immediate', productCode=PRODUCT_CODE, gracePeriod='P5D', exVat=True, refundable=True, includePeriod=True, throw=False, currencyOverride=None)</pc:rules>
+            </pc:children>
+            <pc:children pc:name="Command:Domain,Create">
+              <pc:rules>StandardCommands.create(dryRun=False)</pc:rules>
+              <pc:children pc:name="ContactState:Linked">
+<pc:rules>ContactPolicy.adjustState("linked")</pc:rules>
+              </pc:children>
+              <pc:children pc:name="Timer:SetPeriod">
+<pc:rules>PolicyExec.startTimer("Domain", "SetPeriod", GracePeriod, pid=PolicyExec.getObjectPID())</pc:rules>
+              </pc:children>
+            </pc:children>
+            <pc:children pc:name="AccountCharge">
+              <pc:rules>try:</pc:rules>
+              <pc:rules>  PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=PREMIUM_NAME_PRODUCT_CODE, defaultZone=None, defaultAction=None, orderDesc=False)</pc:rules>
+              <pc:rules>  if Accounts.chargeCheck(PRODUCT_CODE, throw=False):</pc:rules>
+              <pc:rules>    Accounts.charge(PRODUCT_CODE)</pc:rules>
+              <pc:rules>    </pc:rules>
+              <pc:rules>    if PolicyExec.dateCompare(NCPEnd, result=(False, True, True), grain="hour") and RNLPolicy.exists(categoryList=[5200]):</pc:rules>
+              <pc:rules>      DomainPolicy.adjustState("serverHold", CreateNameCollisionMessage)</pc:rules>
+              <pc:rules>      PolicyExec.startTimer("Domain", "PendingNameCollision", NCPEnd, pid=PolicyExec.getObjectPID())</pc:rules>
+              <pc:rules>    else:</pc:rules>
+              <pc:rules>      DomainPolicy.adjustState("ok")</pc:rules>
+              <pc:rules>except Exception as e:</pc:rules>
+              <pc:rules>  log.exception(e)</pc:rules>
+              <pc:rules>  PolicyExec.sendNotification("FAIL: domainCharge - Policy failed to charge for domain: %s - Requeued: 24 hours." % (e), template="techsupport.html", email=techemail)</pc:rules>
+              <pc:rules>  raise</pc:rules>
+            </pc:children>
+            <pc:children pc:name="PopulateFeeCheckExtension">
+              <pc:rules>#redo the check to populate the fee extension response</pc:rules>
+              <pc:rules>PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=PREMIUM_NAME_PRODUCT_CODE, defaultZone=None, defaultAction=None, orderDesc=False)</pc:rules>
+              <pc:rules>FeesCommands.create(description='domain:create; refundable in addPeriod', applied='immediate', productCode=PRODUCT_CODE, gracePeriod='P5D', exVat=True, refundable=True, includePeriod=True, throw=False, currencyOverride=None)</pc:rules>
+            </pc:children>
+            <pc:children pc:name="SetResponse">
+              <pc:rules>StandardCommands.response(1000, "Command completed successfully")</pc:rules>
+            </pc:children>
+            <pc:children pc:name="SetAutoRenew">
+              <pc:rules>DomainPolicy.setAutoRenew(True)</pc:rules>
+            </pc:children>
+            <pc:children pc:name="SetAGP">
+              <pc:rules>#Set "addPeriod" AGP status here</pc:rules>
+              <pc:rules>#create timer to remove the status after 5 days</pc:rules>
+              <pc:rules>DomainPolicy.adjustRGPState('addPeriod', message="Domain in Add Period")</pc:rules>
+              <pc:rules>PolicyExec.startTimer("Domain", "AGPAddPeriod", GracePeriod, pid=PolicyExec.getObjectPID())</pc:rules>
+            </pc:children>
+          </pc:answerTrue>
+          <pc:answerFalse pc:name="AnswerFalse">
+            <pc:children pc:name="AccountChargeCheck">
+              <pc:rules>if PolicyExec.getRegistrar() not in NonBillableRegistrars:</pc:rules>
+              <pc:rules>  if PolicyExec.dateCompare(SALE_START, grain="day", result=(True, True, False)) and PolicyExec.dateCompare(SALE_END, grain="day", result=(False, True, True)) and PolicyExec.payloadContains("//domain:period[@unit='y' and text()='1']"):</pc:rules>
+              <pc:rules>    REGISTRATION_PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='sale')</pc:rules>
+              <pc:rules>  else:</pc:rules>
+              <pc:rules>    REGISTRATION_PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='new')</pc:rules>
+              <pc:rules>  Accounts.chargeCheck(REGISTRATION_PRODUCT_CODE)</pc:rules>
+            </pc:children>
+            <pc:children pc:name="FeeExtensionCheck">
+              <pc:rules>#check that the amount provided in the extension matches the cost</pc:rules>
+              <pc:rules>#if not then throw error for mismatch of payment amount</pc:rules>
+              <pc:rules>if ContactPolicy.checkRegistrarSupport('fee'):</pc:rules>
+              <pc:rules>  if PolicyExec.dateCompare(SALE_START, grain="day", result=(True, True, False)) and PolicyExec.dateCompare(SALE_END, grain="day", result=(False, True, True)) and PolicyExec.payloadContains("//domain:period[@unit='y' and text()='1']"):</pc:rules>
+              <pc:rules>    REGISTRATION_PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='sale')</pc:rules>
+              <pc:rules>  else:</pc:rules>
+              <pc:rules>    REGISTRATION_PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='new')</pc:rules>
+              <pc:rules>  FeesCommands.create(description='domain:create; refundable in addPeriod', applied='immediate',productCode=REGISTRATION_PRODUCT_CODE, gracePeriod='P5D', exVat=True, includePeriod=True, throw=False, currencyOverride=None)</pc:rules>
+            </pc:children>
+            <pc:children pc:name="Command:Domain,Create">
+              <pc:rules>StandardCommands.create(dryRun=False)</pc:rules>
+              <pc:children pc:name="ContactState:Linked">
+<pc:rules>ContactPolicy.adjustState("linked")</pc:rules>
+              </pc:children>
+              <pc:children pc:name="Timer:SetPeriod">
+<pc:rules>PolicyExec.startTimer("Domain", "SetPeriod", GracePeriod, pid=PolicyExec.getObjectPID())</pc:rules>
+              </pc:children>
+            </pc:children>
+            <pc:children pc:name="FSCharge">
+              <pc:branch pc:decision="PolicyExec.dateCompare(SALE_START, grain=&quot;day&quot;, result=(True, True, False)) and PolicyExec.dateCompare(SALE_END, grain=&quot;day&quot;, result=(False, True, True)) and PolicyExec.payloadContains(&quot;//domain:period[@unit='y' and text()='1']&quot;)">
+                <pc:answerTrue pc:name="AnswerTrue">
+                  <pc:children pc:name="AccountCharge">
+                    <pc:rules>try:</pc:rules>
+                    <pc:rules>  SALE_PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'sale'}, suffix='new')</pc:rules>
+                    <pc:rules>  if Accounts.chargeCheck(SALE_PRODUCT_CODE, throw=False):</pc:rules>
+                    <pc:rules>    Accounts.charge(SALE_PRODUCT_CODE)</pc:rules>
+                    <pc:rules></pc:rules>
+                    <pc:rules>    if PolicyExec.dateCompare(NCPEnd, result=(False, True, True), grain="hour") and RNLPolicy.exists(categoryList=[5200]):</pc:rules>
+                    <pc:rules>      DomainPolicy.adjustState("serverHold", CreateNameCollisionMessage)</pc:rules>
+                    <pc:rules>      PolicyExec.startTimer("Domain", "PendingNameCollision", NCPEnd, pid=PolicyExec.getObjectPID())</pc:rules>
+                    <pc:rules>    else:</pc:rules>
+                    <pc:rules>      DomainPolicy.adjustState("ok")</pc:rules>
+                    <pc:rules>except Exception as e:</pc:rules>
+                    <pc:rules>  log.exception(e)</pc:rules>
+                    <pc:rules>  PolicyExec.sendNotification("FAIL: domainCharge - Policy failed to charge for domain: %s - Requeued: 24 hours." % (e), template="techsupport.html", email=techemail)</pc:rules>
+                    <pc:rules>  raise</pc:rules>
+                  </pc:children>
+                </pc:answerTrue>
+                <pc:answerFalse pc:name="AnswerFalse">
+                  <pc:children pc:name="AccountCharge">
+                    <pc:rules>try:</pc:rules>
+                    <pc:rules>  REGISTRATION_PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='new')</pc:rules>
+                    <pc:rules>  if Accounts.chargeCheck(REGISTRATION_PRODUCT_CODE, throw=False):</pc:rules>
+                    <pc:rules>    Accounts.charge(REGISTRATION_PRODUCT_CODE)</pc:rules>
+                    <pc:rules></pc:rules>
+                    <pc:rules>    if PolicyExec.dateCompare(NCPEnd, result=(False, True, True), grain="hour") and RNLPolicy.exists(categoryList=[5200]):</pc:rules>
+                    <pc:rules>      DomainPolicy.adjustState("serverHold", CreateNameCollisionMessage)</pc:rules>
+                    <pc:rules>      PolicyExec.startTimer("Domain", "PendingNameCollision", NCPEnd, pid=PolicyExec.getObjectPID())</pc:rules>
+                    <pc:rules>    else:</pc:rules>
+                    <pc:rules>      DomainPolicy.adjustState("ok")</pc:rules>
+                    <pc:rules>except Exception as e:</pc:rules>
+                    <pc:rules>  log.exception(e)</pc:rules>
+                    <pc:rules>  PolicyExec.sendNotification("FAIL: domainCharge - Policy failed to charge for domain: %s - Requeued: 24 hours." % (e), template="techsupport.html", email=techemail)</pc:rules>
+                    <pc:rules>  raise</pc:rules>
+                  </pc:children>
+                </pc:answerFalse>
+              </pc:branch>
+            </pc:children>
+            <pc:children pc:name="PopulateFeeCheckExtension">
+              <pc:rules>#redo the check to populate the extension response</pc:rules>
+              <pc:rules>if ContactPolicy.checkRegistrarSupport('fee'):</pc:rules>
+              <pc:rules>  if PolicyExec.dateCompare(SALE_START, grain="day", result=(True, True, False)) and PolicyExec.dateCompare(SALE_END, grain="day", result=(False, True, True)) and PolicyExec.payloadContains("//domain:period[@unit='y' and text()='1']"):</pc:rules>
+              <pc:rules>    REGISTRATION_PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'sale'}, suffix='new')</pc:rules>
+              <pc:rules>  else:</pc:rules>
+              <pc:rules>    REGISTRATION_PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='new')</pc:rules>
+              <pc:rules>  FeesCommands.create(description='domain:create; refundable in addPeriod', applied='immediate',productCode=REGISTRATION_PRODUCT_CODE, gracePeriod='P5D', exVat=True, includePeriod=True, throw=False, currencyOverride=None)</pc:rules>
+            </pc:children>
+            <pc:children pc:name="SetResponse">
+              <pc:rules>StandardCommands.response(1000, "Command completed successfully")</pc:rules>
+            </pc:children>
+            <pc:children pc:name="SetAutoRenew">
+              <pc:rules>DomainPolicy.setAutoRenew(True)</pc:rules>
+            </pc:children>
+            <pc:children pc:name="SetAGP">
+              <pc:rules>#Set "addPeriod" AGP status here</pc:rules>
+              <pc:rules>#create timer to remove the status after 5 days</pc:rules>
+              <pc:rules>DomainPolicy.adjustRGPState('addPeriod', message="Domain in Add Period")</pc:rules>
+              <pc:rules>PolicyExec.startTimer("Domain", "AGPAddPeriod", GracePeriod, pid=PolicyExec.getObjectPID())</pc:rules>
+            </pc:children>
+          </pc:answerFalse>
+        </pc:branch>
+      </pc:activities>
+    </pc:events>
+    <pc:events pc:name="AGPAddPeriod">
+      <pc:activities pc:name="RemoveAGPStatus">
+        <pc:rules>DomainPolicy.removeRGPState('addPeriod')</pc:rules>
+      </pc:activities>
+    </pc:events>
+    <pc:events pc:name="Delete">
+      <pc:activities pc:name="ConstraintsCheck">
+        <pc:rules>PolicyExec.fieldConstraintsValidation()</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="DomainStatusCheck">
+        <pc:rules>DomainPolicy.statusCheck(["pendingDelete","pendingTransfer","serverDeleteProhibited","clientDeleteProhibited"], invert=True)</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="DomainOwnershipCheck">
+        <pc:rules>DomainPolicy.ownershipCheck()</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="Command:Domain,Delete,DryRun">
+        <pc:rules>StandardCommands.delete(dryRun = True, hostObj=(not API))</pc:rules>
+        <pc:children pc:name="GracePeriodCheck">
+          <pc:branch pc:decision="DomainPolicy.RGPStatusCheck([&quot;addPeriod&quot;], invert=False, throw=False)&#xA;#only way to be sure about grace period eletions is through the 'addPeriod' status&#xA;#DomainPolicy.isInGracePeriod(GracePeriod)">
+            <pc:answerTrue pc:name="InGracePeriod">
+              <pc:children pc:name="Accounting">
+                <pc:rules>if PolicyExec.getRegistrar() not in NonBillableRegistrars:</pc:rules>
+                <pc:rules>  REGISTRATION_PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='new')</pc:rules>
+                <pc:rules>  if DomainPolicy.isAGPCompliant(gracePeriod='5 days', minCount=50, netCreates=0.10, exemptions={}):</pc:rules>
+                <pc:rules>    if RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170,8190]):</pc:rules>
+                <pc:rules>      log.warning("DOMAIN IDENTIFIED IN PREMIUM LIST")</pc:rules>
+                <pc:rules>      PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170,8190], defaultProductCode=REGISTRATION_PRODUCT_CODE, defaultZone=None, defaultAction=None, excludeCommand=True, orderDesc=False, eppCommandMapping={'delete':'create'})</pc:rules>
+                <pc:rules>      try:</pc:rules>
+                <pc:rules>        prodCost=Accounts.getLastChargedPrice(productcode=PRODUCT_CODE, domain=PolicyExec.getObjectName())</pc:rules>
+                <pc:rules>        Accounts.refund(productcode=PRODUCT_CODE, prodcost=prodCost)</pc:rules>
+                <pc:rules>      except Exception as e:</pc:rules>
+                <pc:rules>        log.exception(e)</pc:rules>
+                <pc:rules>        log.debug("Product Code is %s . Registrar refunded is %s . Product cost identifed is %s ." % (PRODUCT_CODE, PolicyExec.getRegistrar(), prodCost))</pc:rules>
+                <pc:rules>        PolicyExec.sendNotification("ERROR IN REFUNDING FOR RYCE DOMAIN NAME", template="techsupport.html", email="support@dnservices.co.za")</pc:rules>
+                <pc:rules></pc:rules>
+                <pc:rules>    else:</pc:rules>
+                <pc:rules>      if DomainPolicy.wasCreatedBetween("2016-03-22","2016-03-22", grain='day'):</pc:rules>
+                <pc:rules>        SALE_PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'sale'}, suffix='new')</pc:rules>
+                <pc:rules>        Accounts.refund(SALE_PRODUCT_CODE)</pc:rules>
+                <pc:rules>      else:</pc:rules>
+                <pc:rules>#retrieve the last charged price to ensure that we refund correctly</pc:rules>
+                <pc:rules>        try:</pc:rules>
+                <pc:rules>          prodCost=Accounts.getLastChargedPrice(productcode=REGISTRATION_PRODUCT_CODE, domain=PolicyExec.getObjectName())</pc:rules>
+                <pc:rules>          Accounts.refund(productcode=REGISTRATION_PRODUCT_CODE, prodcost=prodCost)</pc:rules>
+                <pc:rules>        except Exception as e:</pc:rules>
+                <pc:rules>          log.exception(e)</pc:rules>
+                <pc:rules>          log.debug("Product Code is %s . Registrar refunded is %s . Product cost identifed is %s ." % (REGISTRATION_PRODUCT_CODE, PolicyExec.getRegistrar(), prodCost))</pc:rules>
+                <pc:rules>          PolicyExec.sendNotification(message="ERROR IN REFUNDING FOR RYCE DOMAIN NAME.", template="techsupport.html", email="support@dnservices.co.za")</pc:rules>
+              </pc:children>
+              <pc:children pc:name="ClearPendingEvents">
+                <pc:rules>#clear all other potential timers that may still be associated with the domain name</pc:rules>
+                <pc:rules>DomainPolicy.cancelPendingAction(eventName="AGPAddPeriod", registryID="EPPServer", admin=True, pid=PolicyExec.getObjectPID())</pc:rules>
+                <pc:rules>DomainPolicy.cancelPendingAction(eventName="SetPeriod", registryID="EPPServer", admin=True, pid=PolicyExec.getObjectPID())</pc:rules>
+              </pc:children>
+              <pc:children pc:name="Command:Domain,Delete">
+                <pc:rules>#this also deletes the subordinate hosts</pc:rules>
+                <pc:rules>StandardCommands.delete(hostObj=(not API))</pc:rules>
+              </pc:children>
+              <pc:children pc:name="Commit">
+                <pc:rules>StandardCommands.commit()</pc:rules>
+              </pc:children>
+              <pc:children pc:name="SetResponse">
+                <pc:rules>StandardCommands.response(1000, "Command completed successfully")</pc:rules>
+              </pc:children>
+            </pc:answerTrue>
+            <pc:answerFalse pc:name="OutOfGracePeriod">
+              <pc:children pc:name="AddStatus">
+                <pc:rules>DomainPolicy.adjustState("pendingDelete", validate=False)</pc:rules>
+                <pc:rules>#as per icann expired registration recovery policy</pc:rules>
+                <pc:rules>DomainPolicy.addState("serverHold", validate=False)</pc:rules>
+              </pc:children>
+              <pc:children pc:name="AddGracePeriodStatus">
+                <pc:rules>#add redemptionPeriod AGP status here</pc:rules>
+                <pc:rules>DomainPolicy.adjustRGPState(None)</pc:rules>
+                <pc:rules>DomainPolicy.adjustRGPState('redemptionPeriod', message='Domain in Redemption Period')</pc:rules>
+              </pc:children>
+              <pc:children pc:name="Timer:PendingRedemption">
+                <pc:rules>PolicyExec.startTimer("Domain", "PendingRedemption", RedemptionPeriod, pid=PolicyExec.getObjectPID())</pc:rules>
+              </pc:children>
+              <pc:children pc:name="SetResponse">
+                <pc:rules>StandardCommands.response(1000, "Command completed successfully")</pc:rules>
+              </pc:children>
+              <pc:children pc:name="SetHostStatus">
+                <pc:rules>#set "pendingDelete" status on the subordinate hosts</pc:rules>
+                <pc:rules>DomainPolicy.adjustSubordinateHostsStatus(status=None)</pc:rules>
+                <pc:rules>DomainPolicy.adjustSubordinateHostsStatus(status='pendingDelete')</pc:rules>
+              </pc:children>
+            </pc:answerFalse>
+          </pc:branch>
+        </pc:children>
+      </pc:activities>
+    </pc:events>
+    <pc:events pc:name="PendingRedemption">
+      <pc:activities pc:name="DomainState:Deleted">
+        <pc:rules>#add AGP pendingDelete status here</pc:rules>
+        <pc:rules>DomainPolicy.adjustRGPState(None)</pc:rules>
+        <pc:rules>DomainPolicy.adjustRGPState('pendingDelete', message='Domain Pending Delete')</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="CPASetPeriod">
+        <pc:rules>DomainPolicy.cancelPendingAction(eventName="SetPeriod", registryID="EPPServer", admin=True, queueMessage=False, pid=PolicyExec.getObjectPID())</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="Commit">
+        <pc:rules>StandardCommands.commit()</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="Timer:PendingDelete">
+        <pc:rules>PolicyExec.startTimer("Domain", "PendingDelete", PolicyPeriod, pid=PolicyExec.getObjectPID())</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="GracePeriodCheckRefund">
+        <pc:rules>#check if the domain name has been autorenewed, renewed or transfered previously</pc:rules>
+        <pc:rules>#and provide a refund according to policy</pc:rules>
+        <pc:rules></pc:rules>
+        <pc:rules>if DomainPolicy.checkStatusWasCreatedWithinXofTimerTrigger('pendingDelete', '45 days', 'Auto_Renew') or DomainPolicy.checkPreviousRGPStatus(rgpStatus='renewPeriod', period='30 days 50 seconds', throw=False) or DomainPolicy.checkStatusWasCreatedWithinXofTimerTrigger('pendingDelete', '5 days', 'PendingTransferUpdate'):</pc:rules>
+        <pc:rules></pc:rules>
+        <pc:rules>  if RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150, 8160 ,8170, 8190]):</pc:rules>
+        <pc:rules>#make sure we get the renewal product code</pc:rules>
+        <pc:rules>    log.warning("DOMAIN IDENTIFIED IN PREMIUM LIST")</pc:rules>
+        <pc:rules>    PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170,8190], orderDesc=False, excludeCommand=False, eppCommandMapping={'delete': 'renew'})</pc:rules>
+        <pc:rules>  else:</pc:rules>
+        <pc:rules>    log.warning("DOMAIN NOT IN PREMIUM LIST")</pc:rules>
+        <!-- <pc:values pc:name="RENEWAL_PRODUCT_CODE" pc:comment="The product code for rewals of domains">wien_renew</pc:values> -->
+        <pc:rules>    PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='renew')</pc:rules>
+        <pc:rules>    log.warning(f"DEBUG: GracePeriodCheckRefund(): DOMAIN PRODUCT_CODE MUST BE 'wien_renew' and is '{PRODUCT_CODE}'")</pc:rules>
+        <pc:rules>#retrieve the last charged price to ensure that we refund correctly</pc:rules>
+        <pc:rules>  log.warning("PRODUCT CODE IS: %s" % PRODUCT_CODE)</pc:rules>
+        <pc:rules>  try:</pc:rules>
+        <pc:rules>    prodCost=Accounts.getLastChargedPrice(productcode=PRODUCT_CODE, domain=PolicyExec.getObjectName())</pc:rules>
+        <pc:rules>    Accounts.refund(productcode=PRODUCT_CODE, prodcost=prodCost)</pc:rules>
+        <pc:rules>  except Exception as e:</pc:rules>
+        <pc:rules>    log.exception(e)</pc:rules>
+        <pc:rules>    log.debug("Product Code is %s . Registrar refunded is %s . Product cost identifed is %s ." % (PRODUCT_CODE, PolicyExec.getRegistrar(), prodCost))</pc:rules>
+        <pc:rules>    PolicyExec.sendNotification("ERROR IN REFUNDING FOR RYCE DOMAIN NAME", template="techsupport.html", email="support@dnservices.co.za")</pc:rules>
+      </pc:activities>
+    </pc:events>
+    <pc:events pc:name="PendingDelete">
+      <pc:activities pc:name="ClearOtherPending">
+        <pc:rules>#clear all other potential timers that may still be associated with the domain name</pc:rules>
+        <pc:rules>DomainPolicy.cancelPendingAction(eventName="PendingUpdate", registryID="EPPServer", admin=True, pid=PolicyExec.getObjectPID())</pc:rules>
+        <pc:rules>DomainPolicy.cancelPendingAction(eventName="AGPAutorenew", registryID="EPPServer", admin=True, pid=PolicyExec.getObjectPID())</pc:rules>
+        <pc:rules>DomainPolicy.removeState("pendingUpdate")</pc:rules>
+        <pc:rules></pc:rules>
+        <pc:rules></pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="RemoveBlockingStates">
+        <pc:rules>DomainPolicy.removeState("clientDeleteProhibited")</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="Commit">
+        <pc:rules>#we do a commit here so the correct timers are cancelled if they exist</pc:rules>
+        <pc:rules>StandardCommands.commit()</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="Command:Domain,Delete,DryRun">
+        <pc:rules>StandardCommands.delete(dryRun=True, hostObj=(not API))</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="PostMessage">
+        <pc:rules>StandardCommands.response(1000, "Domain '%s' was deleted" % (PolicyExec.getObjectName()))</pc:rules>
+        <pc:rules>StandardCommands.postMessage("DNServices")</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="Commit">
+        <pc:rules>#we do a commit so the poll message is sent</pc:rules>
+        <pc:rules>#then a delete</pc:rules>
+        <pc:rules>StandardCommands.commit()</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="Command:Domain,Delete">
+        <pc:rules>#this also deletes the subordinate hosts</pc:rules>
+        <pc:rules>StandardCommands.delete(hostObj=(not API))</pc:rules>
+      </pc:activities>
+    </pc:events>
+    <pc:events pc:name="Info">
+      <pc:activities pc:name="isInSalePeriod">
+        <pc:branch pc:decision="PolicyExec.dateCompare(SALE_START, grain=&quot;day&quot;, result=(True, True, False)) and PolicyExec.dateCompare(SALE_END, grain=&quot;day&quot;, result=(False, True, True))">
+          <pc:answerTrue pc:name="AnswerTrue">
+            <pc:children pc:name="ConstraintsCheck">
+              <pc:rules>PolicyExec.fieldConstraintsValidation()</pc:rules>
+            </pc:children>
+            <pc:children pc:name="CheckIDN">
+              <pc:rules>#DomainPolicy.validateIDN('latin')</pc:rules>
+            </pc:children>
+            <pc:children pc:name="Command:Domain,Info">
+              <pc:rules>#Brown's fees is not in domain info</pc:rules>
+              <pc:rules>StandardCommands.info(hostObj=(not API))</pc:rules>
+            </pc:children>
+          </pc:answerTrue>
+          <pc:answerFalse pc:name="AnswerFalse">
+            <pc:children pc:name="ConstraintsCheck">
+              <pc:rules>PolicyExec.fieldConstraintsValidation()</pc:rules>
+            </pc:children>
+            <pc:children pc:name="CheckIDN">
+              <pc:rules>#DomainPolicy.validateIDN('latin')</pc:rules>
+            </pc:children>
+            <pc:children pc:name="Command:Domain,Info">
+              <pc:rules>#Brown's fees is not in domain info</pc:rules>
+              <pc:rules>StandardCommands.info(hostObj=(not API))</pc:rules>
+            </pc:children>
+          </pc:answerFalse>
+        </pc:branch>
+      </pc:activities>
+    </pc:events>
+    <pc:events pc:name="Check">
+      <pc:activities pc:name="isInSalePeriod">
+        <pc:branch pc:decision="PolicyExec.dateCompare(SALE_START, grain=&quot;day&quot;, result=(True, True, False)) and PolicyExec.dateCompare(SALE_END, grain=&quot;day&quot;, result=(False, True, True))">
+          <pc:answerTrue pc:name="AnswerTrue">
+            <!--<pc:children pc:name="ConstraintsCheck">
+              <pc:rules>PolicyExec.fieldConstraintsValidation()</pc:rules>
+            </pc:children>-->
+            <pc:children pc:name="CheckIDN">
+              <pc:rules>DomainPolicy.validateIDN('latin')</pc:rules>
+            </pc:children>
+            <pc:children pc:name="Command:Domain,Check">
+              <pc:rules>#amend for brown's fees</pc:rules>
+              <pc:rules>StandardCommands.check(ignoreCategories=[5200,8100,8110,8120,8130,8140,8150,8160,8170])</pc:rules>
+              <pc:rules>if ContactPolicy.checkRegistrarSupport('fee'):</pc:rules>
+              <pc:rules>  FeesCommands.check({'create': {'productsuffix': 'new','description': 'domain:create; refundable in addPeriod', 'applied': 'immediate', 'refundable':True, 'graceperiod': 'P5D'}, 'renew': {'productsuffix': 'renew','description': 'domain:renew; refundable in renewPeriod', 'applied': 'immediate', 'refundable':True, 'graceperiod': 'P5D'}, 'restore': {'productsuffix': 'restore','description': 'domain:restore:request', 'applied': 'immediate', 'refundable':False}, 'transfer': {'productsuffix': 'transfer','description': 'domain:renew; refundable in transferPeriod', 'applied': 'delayed', 'refundable':True,'graceperiod': 'P5D'}}, premiumCategories = [8100, 8110, 8120, 8130, 8140, 8150, 8160,8170], perDomainPricingCategories = None, classification='standard', exVat=True, includePeriod=True)</pc:rules>
+              <pc:rules></pc:rules>
+            </pc:children>
+          </pc:answerTrue>
+          <pc:answerFalse pc:name="AnswerFalse">
+            <!--<pc:children pc:name="ConstraintsCheck">
+              <pc:rules>PolicyExec.fieldConstraintsValidation()</pc:rules>
+            </pc:children>-->
+            <pc:children pc:name="CheckIDN">
+              <pc:rules>DomainPolicy.validateIDN('latin')</pc:rules>
+            </pc:children>
+            <pc:children pc:name="Command:Domain,Check">
+              <pc:rules>#amend for brown's fees</pc:rules>
+              <pc:rules>StandardCommands.check(ignoreCategories=[5200, 8100,8110,8120,8130,8140,8150,8160,8170])</pc:rules>
+              <pc:rules>if ContactPolicy.checkRegistrarSupport('fee'):</pc:rules>
+              <pc:rules>  FeesCommands.check({'create': {'productsuffix': 'new','description': 'domain:create; refundable in addPeriod', 'applied': 'immediate', 'refundable':True, 'graceperiod': 'P5D'}, 'renew': {'productsuffix': 'renew','description': 'domain:renew; refundable in renewPeriod', 'applied': 'immediate', 'refundable':True, 'graceperiod': 'P5D'}, 'restore': {'productsuffix': 'restore','description': 'domain:restore:request', 'applied': 'immediate', 'refundable':False}, 'transfer': {'productsuffix': 'transfer','description': 'domain:renew; refundable in transferPeriod', 'applied': 'delayed', 'refundable':True,'graceperiod': 'P5D'}}, premiumCategories = [8100, 8110, 8120, 8130, 8140, 8150, 8160,8170], perDomainPricingCategories = None, classification='standard', exVat=True, includePeriod=True)</pc:rules>
+            </pc:children>
+          </pc:answerFalse>
+        </pc:branch>
+      </pc:activities>
+    </pc:events>
+    <pc:events pc:name="PendingTransferFSCharge">
+      <pc:activities pc:name="AccountCharge">
+        <pc:rules>try:</pc:rules>
+        <pc:rules>  if RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170]):</pc:rules>
+        <pc:rules>#make sure we get the renewal product code</pc:rules>
+        <pc:rules>    RENEWAL_PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='renew')</pc:rules>
+        <pc:rules>    PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=RENEWAL_PRODUCT_CODE, defaultZone=None, defaultAction='renew', orderDesc=False, eppCommandMapping={'transfer_request':'renew'})</pc:rules>
+        <pc:rules>  else:</pc:rules>
+        <!--          <pc:values pc:name="RENEWAL_PRODUCT_CODE" pc:comment="The product code for rewals of domains">wien_renew</pc:values> -->
+        <pc:rules>    PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='renew')</pc:rules>
+        <pc:rules>    log.warning(f"DEBUG: GracePeriodCheckRefund(): DOMAIN PRODUCT_CODE MUST BE 'wien_renew' and is '{PRODUCT_CODE}'")</pc:rules>
+        <pc:rules>    # PRODUCT_CODE = RENEWAL_PRODUCT_CODE</pc:rules>
+        <pc:rules>    if Accounts.chargeCheck(PRODUCT_CODE, throw=False):</pc:rules>
+        <pc:rules>      Accounts.charge(PRODUCT_CODE)</pc:rules>
+        <pc:rules>    else:</pc:rules>
+        <pc:rules>      PolicyExec.startTimer("Domain", "PendingTransferFSCharge", "8 hours")</pc:rules>
+        <pc:rules>except Exception as e:</pc:rules>
+        <pc:rules>  log.exception(e)</pc:rules>
+        <pc:rules>  PolicyExec.startTimer("Domain", "PendingTransferFSCharge", "24 hours", pid=PolicyExec.getObjectPID())</pc:rules>
+        <pc:rules>  StandardCommands.commit() #Commit the next one prior to sending out an email</pc:rules>
+        <pc:rules>  PolicyExec.sendNotification("FAIL: domainCharge - Policy failed to charge for domain: %s - Requeued: 24 hours." % (e), template="techsupport.html", email=techemail)</pc:rules>
+      </pc:activities>
+    </pc:events>
+    <pc:events pc:name="Renew">
+      <pc:activities pc:name="PhaseCheck">
+        <pc:branch pc:decision="PolicyExec.dateCompare(GeneralAvailabilityStart, result=(True, True, False), grain=&quot;hour&quot;)">
+          <pc:answerTrue pc:name="AnswerTrue">
+            <pc:children pc:name="Validations">
+              <pc:children pc:name="DomainStatusCheck">
+                <pc:rules>DomainPolicy.statusCheck(["clientRenewProhibited", "serverRenewProhibited", "pendingTransfer"], invert=True)</pc:rules>
+              </pc:children>
+              <pc:children pc:name="DomainRGPStatusCheck">
+                <pc:rules>#cannot renew domain that is being deleted</pc:rules>
+                <pc:rules>if (DomainPolicy.RGPStatusCheck(["pendingDelete"], invert=False, throw=False)):</pc:rules>
+                <pc:rules>  raise EPPError(2105, "Domain pending delete")</pc:rules>
+                <pc:rules></pc:rules>
+                <pc:rules>#cannot renew domain in redemption or pending restoration</pc:rules>
+                <pc:rules>#must restore</pc:rules>
+                <pc:rules>if (DomainPolicy.RGPStatusCheck(["redemptionPeriod"], invert=False, throw=False)):</pc:rules>
+                <pc:rules>  raise EPPError(2105, "Domain requires restoration")</pc:rules>
+                <pc:rules></pc:rules>
+                <pc:rules>if (DomainPolicy.RGPStatusCheck(["pendingRestore"], invert=False, throw=False)):</pc:rules>
+                <pc:rules>  raise EPPError(2105, "Domain pending restoration")</pc:rules>
+              </pc:children>
+              <pc:children pc:name="ConstraintsCheck">
+                <pc:rules>PolicyExec.fieldConstraintsValidation()</pc:rules>
+              </pc:children>
+              <pc:children pc:name="DomainOwnershipCheck">
+                <pc:rules>DomainPolicy.ownershipCheck()</pc:rules>
+              </pc:children>
+              <pc:children pc:name="isWithinRenewal">
+                <pc:rules>#need to find out if there is still available time</pc:rules>
+                <pc:rules>#within a maximum of 10 years to allow for a renewal</pc:rules>
+                <pc:rules>if not DomainPolicy.extendExpiry(maximumExpiry="10 years", testOnly=True, useDomainPeriod=True):</pc:rules>
+                <pc:rules>  raise EPPError(2105, "Cannot renew domain past 10 years")</pc:rules>
+              </pc:children>
+              <pc:children pc:name="ChargeCheck">
+CARRY ON FROM HERE ADJUST THIS TO DETERMINE RENEWAL_PRODUCT_CODE TO SIMILAR AS ABOVE
+                <pc:rules>if RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170]) and not ContactPolicy.checkRegistrarSupport('fee'):</pc:rules>
+                <pc:rules>  raise EPPError(2003, "Fee extension registration required to renew premium names")</pc:rules>
+                <pc:rules>elif ContactPolicy.checkRegistrarSupport('fee'):</pc:rules>
+                <pc:rules>  if RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170]):</pc:rules>
+                <pc:rules>    PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=RENEWAL_PRODUCT_CODE, defaultZone=None, defaultAction=None, orderDesc=False)</pc:rules>
+                <pc:rules>    FeesCommands.renew(description='domain:renew; refundable in renewPeriod', applied='immediate', productCode=PRODUCT_CODE, gracePeriod='P5D', exVat=True, includePeriod=True, throw=True, currencyOverride=None)</pc:rules>
+                <pc:rules>  else:</pc:rules>
+                <pc:rules>    PRODUCT_CODE=RENEWAL_PRODUCT_CODE</pc:rules>
+                <pc:rules>    FeesCommands.renew(description='domain:renew; refundable in renewPeriod', applied='immediate', productCode=PRODUCT_CODE, gracePeriod='P5D', exVat=True, includePeriod=True, throw=False, currencyOverride=None)</pc:rules>
+              </pc:children>
+            </pc:children>
+            <pc:children pc:name="RenewalCommands">
+              <pc:children pc:name="LockDomain">
+                <pc:rules>DomainPolicy.lockDomain(throws=True, wait=False)</pc:rules>
+              </pc:children>
+              <pc:children pc:name="AccountCheck">
+                <pc:rules>#Perform an account check</pc:rules>
+                <pc:rules>if PolicyExec.getRegistrar() not in NonBillableRegistrars and not RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170]):</pc:rules>
+                <pc:rules>  Accounts.chargeCheck(RENEWAL_PRODUCT_CODE)</pc:rules>
+                <pc:rules>elif PolicyExec.getRegistrar() not in NonBillableRegistrars:</pc:rules>
+                <pc:rules>  PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=RENEWAL_PRODUCT_CODE, defaultZone=None, defaultAction=None, orderDesc=False)</pc:rules>
+                <pc:rules>  Accounts.chargeCheck(PRODUCT_CODE)</pc:rules>
+              </pc:children>
+              <pc:children pc:name="Command:Domain,Renew">
+                <pc:rules>StandardCommands.renew(dryRun=False)</pc:rules>
+              </pc:children>
+              <pc:children pc:name="AccountCommit">
+                <pc:rules>if PolicyExec.getRegistrar() not in NonBillableRegistrars and not RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170]):</pc:rules>
+                <pc:rules>  Accounts.charge(RENEWAL_PRODUCT_CODE)</pc:rules>
+                <pc:rules>elif PolicyExec.getRegistrar() not in NonBillableRegistrars:</pc:rules>
+                <pc:rules>  PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=RENEWAL_PRODUCT_CODE, defaultZone=None, defaultAction=None, orderDesc=False)</pc:rules>
+                <pc:rules>  Accounts.charge(PRODUCT_CODE)</pc:rules>
+              </pc:children>
+              <pc:children pc:name="CheckChargeSupport">
+                <pc:rules>#INCLUDE THE PRODUCT_CODE FOR RENEW IN THE FEE EXTENSION</pc:rules>
+                <pc:rules>if RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170]) and not ContactPolicy.checkRegistrarSupport('fee'):</pc:rules>
+                <pc:rules>  raise EPPError(2201, "Fee extension registration required to renew premium names")</pc:rules>
+                <pc:rules>elif ContactPolicy.checkRegistrarSupport('fee'):</pc:rules>
+                <pc:rules>  if RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170]):</pc:rules>
+                <pc:rules>    PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=RENEWAL_PRODUCT_CODE, defaultZone=None, defaultAction=None, orderDesc=False)</pc:rules>
+                <pc:rules>  else:</pc:rules>
+                <pc:rules>    PRODUCT_CODE=RENEWAL_PRODUCT_CODE</pc:rules>
+                <pc:rules></pc:rules>
+                <pc:rules>  FeesCommands.renew(description='domain:renew; refundable in renewPeriod', applied='immediate', productCode=PRODUCT_CODE, gracePeriod='P5D', exVat=True, includePeriod=True, throw=False, currencyOverride=None)</pc:rules>
+              </pc:children>
+              <pc:children pc:name="RemoveAGPStatus">
+                <pc:rules>#remove the AGP status of "addPeriod" and cancel potential timer</pc:rules>
+                <pc:rules>#remove the AGP status of "autoRenewPeriod" and cancel potential timer</pc:rules>
+                <pc:rules>#remove the AGP status of "transferPeriod" and cancel potential timer</pc:rules>
+                <pc:rules>DomainPolicy.adjustRGPState(None)</pc:rules>
+                <pc:rules>DomainPolicy.cancelPendingAction(eventName="AGPAutorenew", registryID="EPPServer", admin=True, pid=PolicyExec.getObjectPID())</pc:rules>
+                <pc:rules>DomainPolicy.cancelPendingAction(eventName="AGPAddPeriod", registryID="EPPServer", admin=True, pid=PolicyExec.getObjectPID())</pc:rules>
+                <pc:rules>DomainPolicy.cancelPendingAction(eventName="AGPTransfer", registryID="EPPServer", admin=True, pid=PolicyExec.getObjectPID())</pc:rules>
+              </pc:children>
+              <pc:children pc:name="CommitTransaction">
+                <pc:rules>StandardCommands.commit()</pc:rules>
+              </pc:children>
+              <pc:children pc:name="SetResponse">
+                <pc:rules>StandardCommands.response(1000, "Command completed successfully")</pc:rules>
+              </pc:children>
+              <pc:children pc:name="SetPeriod">
+                <pc:rules>DomainPolicy.adjustPeriod(period="1", unit="y")</pc:rules>
+              </pc:children>
+              <pc:children pc:name="Timer:AddAGPStatus">
+                <pc:rules>#add the renewPeriod status</pc:rules>
+                <pc:rules>#start a timer to remove the period</pc:rules>
+                <pc:rules>DomainPolicy.adjustRGPState('renewPeriod', message='Domain in Renew Period')</pc:rules>
+                <pc:rules>PolicyExec.startTimer("Domain", "AGPRenew", PolicyPeriod, pid=PolicyExec.getObjectPID())</pc:rules>
+              </pc:children>
+            </pc:children>
+          </pc:answerTrue>
+          <pc:answerFalse pc:name="AnswerFalse">
+            <pc:children pc:name="NotSupported">
+              <pc:rules>StandardCommands.response(2306, "Domain Renew not supported during Launch.")</pc:rules>
+            </pc:children>
+          </pc:answerFalse>
+        </pc:branch>
+      </pc:activities>
+    </pc:events>
+    <pc:events pc:name="AGPRenew">
+      <pc:activities pc:name="RemoveAGPStatus">
+        <pc:rules>#remove the renewPeriod AGP status</pc:rules>
+        <pc:rules>DomainPolicy.removeRGPState('renewPeriod')</pc:rules>
+      </pc:activities>
+    </pc:events>
+    <pc:events pc:name="Transfer_Request">
+      <pc:activities pc:name="PhaseCheck">
+        <pc:branch pc:decision="PolicyExec.dateCompare(GeneralAvailabilityStart, result=(True, True, False), grain=&quot;hour&quot;)">
+          <pc:answerTrue pc:name="AnswerTrue">
+            <pc:children pc:name="OwnershipCheck">
+              <pc:rules>if DomainPolicy.isOwnedBy():</pc:rules>
+              <pc:rules>  raise EPPError(2106, "Cannot transfer domain '%s', requester is already owner" % (PolicyExec.getObjectName()))</pc:rules>
+            </pc:children>
+            <pc:children pc:name="CheckAuthInfo">
+              <pc:rules>DomainPolicy.checkAuthInfo()</pc:rules>
+            </pc:children>
+            <pc:children pc:name="ConstraintsCheck">
+              <pc:rules>PolicyExec.fieldConstraintsValidation()</pc:rules>
+            </pc:children>
+            <pc:children pc:name="DomainStatusCheck">
+              <pc:rules>DomainPolicy.statusCheck(["pendingTransfer","serverTransferProhibited","clientTransferProhibited","pendingDelete"], invert=True)</pc:rules>
+            </pc:children>
+            <pc:children pc:name="RGPStatusCheck">
+              <pc:rules>#cannot transfer domain that is being deleted</pc:rules>
+              <pc:rules>if (DomainPolicy.RGPStatusCheck(["pendingDelete"], invert=False, throw=False)):</pc:rules>
+              <pc:rules>  raise EPPError(2106, "Domain pending delete")</pc:rules>
+              <pc:rules></pc:rules>
+              <pc:rules>#cannot transfer domain in redemption or pending restoration</pc:rules>
+              <pc:rules>#must restore</pc:rules>
+              <pc:rules>if (DomainPolicy.RGPStatusCheck(["redemptionPeriod"], invert=False, throw=False)):</pc:rules>
+              <pc:rules>  raise EPPError(2106, "Domain in Redemption Period")</pc:rules>
+              <pc:rules></pc:rules>
+              <pc:rules>if (DomainPolicy.RGPStatusCheck(["pendingRestore"], invert=False, throw=False)):</pc:rules>
+              <pc:rules>  raise EPPError(2106, "Domain in Restore Period")</pc:rules>
+            </pc:children>
+            <pc:children pc:name="TransferGracePeriodCheck">
+              <pc:rules>lastRar = DomainPolicy.getPreviousRegistrarWithin(period=TRANSFER_GRACE_PERIOD)</pc:rules>
+              <pc:rules></pc:rules>
+              <pc:rules>if lastRar is not None and lastRar != PolicyExec.getRegistrar():</pc:rules>
+              <pc:rules>  raise EPPError(2106, "Domain '%s' within Transfer Grace period of '%s'" % (PolicyExec.getObjectName(), TRANSFER_GRACE_PERIOD))</pc:rules>
+            </pc:children>
+            <pc:children pc:name="Validations">
+              <pc:children pc:name="GracePeriodCheck">
+                <pc:rules>if DomainPolicy.isInGracePeriod(GracePeriod):</pc:rules>
+                <pc:rules>  raise EPPError(2304, "Domain is still within grace period")</pc:rules>
+              </pc:children>
+              <pc:children pc:name="RarTransferCheck">
+                <pc:rules>DomainPolicy.pendingTransfers(fromRar = True)</pc:rules>
+              </pc:children>
+              <pc:children pc:name="Dryrun">
+                <pc:rules>StandardCommands.transfer(PendingTransferUpdatePeriod="5 days", dryRun=True)</pc:rules>
+              </pc:children>
+            </pc:children>
+            <pc:children pc:name="InitialChargeCheckSupport">
+              <pc:rules>#NB CHECK FOR PREMIUM RENEW COST ON TRANSFER</pc:rules>
+              <pc:rules>if RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170]) and not ContactPolicy.checkRegistrarSupport('fee'):</pc:rules>
+              <pc:rules>  raise EPPError(2003, "Fee extension registration required to transfer premium names")</pc:rules>
+              <pc:rules>elif ContactPolicy.checkRegistrarSupport('fee'):</pc:rules>
+              <pc:rules>  if RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170]):</pc:rules>
+              <pc:rules>    PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=RENEWAL_PRODUCT_CODE, defaultZone=None, defaultAction=None, orderDesc=False, eppCommandMapping={'transfer_request':'renew'})</pc:rules>
+              <pc:rules>    FeesCommands.renew(description='domain:renew; refundable in transferPeriod', applied='delayed', productCode=PRODUCT_CODE, gracePeriod='P5D', exVat=True, refundable=True, includePeriod=True, throw=True, currencyOverride=None)</pc:rules>
+              <pc:rules>  else:</pc:rules>
+              <pc:rules>    PRODUCT_CODE=RENEWAL_PRODUCT_CODE</pc:rules>
+              <pc:rules>    FeesCommands.renew(description='domain:renew; refundable in transferPeriod', applied='delayed', productCode=PRODUCT_CODE, gracePeriod='P5D', exVat=True, refundable=True, includePeriod=True, throw=False, currencyOverride=None)</pc:rules>
+            </pc:children>
+            <pc:children pc:name="DomainState:pendingTransfer">
+              <pc:rules>DomainPolicy.addState("pendingTransfer", validate=True)</pc:rules>
+            </pc:children>
+            <pc:children pc:name="PollCurrentRar">
+              <pc:rules>StandardCommands.response(1001, "Outbound transfer of '%s' was REQUESTED" % PolicyExec.getObjectName())</pc:rules>
+              <pc:rules>StandardCommands.postMessage("DNServices", DomainPolicy.getRegistrarName())</pc:rules>
+            </pc:children>
+            <pc:children pc:name="CheckChargeSupport">
+              <pc:rules>#NB CHECK FOR PREMIUM RENEW COST ON TRANSFER</pc:rules>
+              <pc:rules>if ContactPolicy.checkRegistrarSupport('fee'):</pc:rules>
+              <pc:rules>  if RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170]):</pc:rules>
+              <pc:rules>    PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=RENEWAL_PRODUCT_CODE, defaultZone=None, defaultAction=None, orderDesc=False, eppCommandMapping={'transfer_request':'renew'})</pc:rules>
+              <pc:rules>  else:</pc:rules>
+              <pc:rules>    PRODUCT_CODE=RENEWAL_PRODUCT_CODE</pc:rules>
+              <pc:rules></pc:rules>
+              <pc:rules>  FeesCommands.transfer(description='domain:renew; refundable in transferPeriod', applied='delayed', productCode=PRODUCT_CODE, gracePeriod='P5D', exVat=True, refundable=True, includePeriod=True, throw=False, currencyOverride=None)</pc:rules>
+            </pc:children>
+            <pc:children pc:name="SetResponse">
+              <pc:rules>StandardCommands.response(1001, 'Command completed successfully; action pending')</pc:rules>
+            </pc:children>
+            <pc:children pc:name="Timer:PendingTransferUpdate">
+              <pc:rules>PolicyExec.startTimer("Domain", "PendingTransferUpdate", PolicyPeriod, pid=PolicyExec.getObjectPID())</pc:rules>
+            </pc:children>
+            <pc:children pc:name="StartTransfer">
+              <pc:rules>DomainPolicy.startTransfer(mailRant=False, mailRar=False, mailContacts=False, poll=False)</pc:rules>
+            </pc:children>
+            <pc:children pc:name="SetHostStatus">
+              <pc:rules>#adjust the host statuses to pendingTransfer</pc:rules>
+              <pc:rules>DomainPolicy.adjustSubordinateHostsStatus(status='ok')</pc:rules>
+              <pc:rules>DomainPolicy.adjustSubordinateHostsStatus(status='pendingTransfer')</pc:rules>
+            </pc:children>
+          </pc:answerTrue>
+          <pc:answerFalse pc:name="AnswerFalse">
+            <pc:children pc:name="NotSupported">
+              <pc:rules>StandardCommands.response(2306, "Domain Transfer not supported during Launch.")</pc:rules>
+            </pc:children>
+          </pc:answerFalse>
+        </pc:branch>
+      </pc:activities>
+    </pc:events>
+    <pc:events pc:name="Transfer_Cancel">
+      <pc:activities pc:name="PhaseCheck">
+        <pc:branch pc:decision="PolicyExec.dateCompare(GeneralAvailabilityStart, result=(True, True, False), grain=&quot;hour&quot;)">
+          <pc:answerTrue pc:name="AnswerTrue">
+            <pc:children pc:name="ConstraintsCheck">
+              <pc:rules>PolicyExec.fieldConstraintsValidation()</pc:rules>
+            </pc:children>
+            <pc:children pc:name="DomainState:Active">
+              <pc:rules>DomainPolicy.removeState("pendingTransfer")</pc:rules>
+            </pc:children>
+            <pc:children pc:name="Command:Transfer_Cancel">
+              <pc:rules>StandardCommands.transfer(ignoreAuthInfo=True)</pc:rules>
+            </pc:children>
+            <pc:children pc:name="Response">
+              <pc:rules>#post to current registrar</pc:rules>
+              <pc:rules>StandardCommands.response(1000, "Outbound transfer of '%s' was CANCELLED" % PolicyExec.getObjectName())</pc:rules>
+              <pc:rules>StandardCommands.postMessage("DNServices", DomainPolicy.getRegistrarName())</pc:rules>
+              <pc:rules></pc:rules>
+              <pc:rules>StandardCommands.response(1000, "Command completed successfully")</pc:rules>
+            </pc:children>
+            <pc:children pc:name="SetHostStatus">
+              <pc:rules>#adjust the host status to 'ok' because transfer got cancelled</pc:rules>
+              <pc:rules>DomainPolicy.adjustSubordinateHostsStatus(status=None)</pc:rules>
+              <pc:rules>DomainPolicy.adjustSubordinateHostsStatus(status='ok')</pc:rules>
+            </pc:children>
+          </pc:answerTrue>
+          <pc:answerFalse pc:name="AnswerFalse">
+            <pc:children pc:name="NotSupported">
+              <pc:rules>StandardCommands.response(2306, "Domain Transfer not supported during Launch.")</pc:rules>
+            </pc:children>
+          </pc:answerFalse>
+        </pc:branch>
+      </pc:activities>
+    </pc:events>
+    <pc:events pc:name="Transfer_Approve">
+      <pc:activities pc:name="PhaseCheck">
+        <pc:branch pc:decision="PolicyExec.dateCompare(GeneralAvailabilityStart, result=(True, True, False), grain=&quot;hour&quot;)">
+          <pc:answerTrue pc:name="AnswerTrue">
+            <pc:children pc:name="TransferApprove">
+              <pc:rules>StandardCommands.transfer(ignoreAuthInfo=True)</pc:rules>
+            </pc:children>
+            <pc:children pc:name="Response">
+              <pc:rules>StandardCommands.response(1000, "Command completed successfully")</pc:rules>
+            </pc:children>
+            <pc:children pc:name="expirePendingTransfer">
+              <pc:rules>PolicyExec.expireTimer("PendingTransferUpdate", throw=True, objectName="Domain", pid=PolicyExec.getObjectPID())</pc:rules>
+            </pc:children>
+          </pc:answerTrue>
+          <pc:answerFalse pc:name="AnswerFalse">
+            <pc:children pc:name="NotSupported">
+              <pc:rules>StandardCommands.response(2306, "Domain Transfer not supported during Launch.")</pc:rules>
+            </pc:children>
+          </pc:answerFalse>
+        </pc:branch>
+      </pc:activities>
+    </pc:events>
+    <pc:events pc:name="Transfer_Reject">
+      <pc:activities pc:name="PhaseCheck">
+        <pc:branch pc:decision="PolicyExec.dateCompare(GeneralAvailabilityStart, result=(True, True, False), grain=&quot;hour&quot;)">
+          <pc:answerTrue pc:name="AnswerTrue">
+            <pc:children pc:name="ConstraintsCheck">
+              <pc:rules>PolicyExec.fieldConstraintsValidation()</pc:rules>
+            </pc:children>
+            <pc:children pc:name="DomainState:Active">
+              <pc:rules>DomainPolicy.removeState("pendingTransfer")</pc:rules>
+            </pc:children>
+            <pc:children pc:name="State:Commit">
+              <pc:rules>StandardCommands.commit()</pc:rules>
+            </pc:children>
+            <pc:children pc:name="Command:Transfer_Reject">
+              <pc:rules>StandardCommands.transfer(ignoreAuthInfo=True)</pc:rules>
+            </pc:children>
+            <pc:children pc:name="Response">
+              <pc:rules>#post to requesting rar</pc:rules>
+              <pc:rules>StandardCommands.response(2106, "Inbound transfer of '%s' was REJECTED" % PolicyExec.getObjectName())</pc:rules>
+              <pc:rules>StandardCommands.postMessage("DNServices", PolicyExec.getPendingEventRegistrar(objectName="Domain", eventName="PendingTransferUpdate", status=[-1, 0], pid=PolicyExec.getObjectPID()))</pc:rules>
+              <pc:rules>#response to current registrar</pc:rules>
+              <pc:rules>StandardCommands.response(1000, "Command completed successfully")</pc:rules>
+            </pc:children>
+            <pc:children pc:name="cancelPendingTransfer">
+              <pc:rules>DomainPolicy.cancelPendingAction(eventName="PendingTransferUpdate", registryID="EPPServer", admin=True, objectName="Domain", pid=PolicyExec.getObjectPID())</pc:rules>
+            </pc:children>
+            <pc:children pc:name="SetHostStatus">
+              <pc:rules>#adjust the host status to 'ok' because transfer got rejected</pc:rules>
+              <pc:rules>DomainPolicy.adjustSubordinateHostsStatus(status=None)</pc:rules>
+              <pc:rules>DomainPolicy.adjustSubordinateHostsStatus(status='ok')</pc:rules>
+            </pc:children>
+          </pc:answerTrue>
+          <pc:answerFalse pc:name="AnswerFalse">
+            <pc:children pc:name="NotSupported">
+              <pc:rules>StandardCommands.response(2306, "Domain Transfer not supported during Launch.")</pc:rules>
+            </pc:children>
+          </pc:answerFalse>
+        </pc:branch>
+      </pc:activities>
+    </pc:events>
+    <pc:events pc:name="Transfer_Query">
+      <pc:activities pc:name="PhaseCheck">
+        <pc:branch pc:decision="PolicyExec.dateCompare(GeneralAvailabilityStart, result=(True, True, False), grain=&quot;hour&quot;)">
+          <pc:answerTrue pc:name="AnswerTrue">
+            <pc:children pc:name="ConstraintsCheck">
+              <pc:rules>PolicyExec.fieldConstraintsValidation()</pc:rules>
+            </pc:children>
+            <pc:children pc:name="Command:Transfer_Query">
+              <pc:rules>StandardCommands.transfer(dryRun = False)</pc:rules>
+            </pc:children>
+            <pc:children pc:name="ChargeCheckSupport">
+              <pc:rules>if ContactPolicy.checkRegistrarSupport('fee'):</pc:rules>
+              <pc:rules>  if RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170]):</pc:rules>
+              <pc:rules>    PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=RENEWAL_PRODUCT_CODE, defaultZone=None, defaultAction='renew', orderDesc=False)</pc:rules>
+              <pc:rules>  else:</pc:rules>
+              <pc:rules>    PRODUCT_CODE=RENEWAL_PRODUCT_CODE</pc:rules>
+              <pc:rules></pc:rules>
+              <pc:rules>  FeesCommands.transfer_query(description='domain:renew; refundable in transferPeriod', applied='delayed', productCode=PRODUCT_CODE, gracePeriod='P5D', exVat=True, refundable=True, includePeriod=True, throw=False, currencyOverride='EUR')</pc:rules>
+            </pc:children>
+          </pc:answerTrue>
+          <pc:answerFalse pc:name="AnswerFalse">
+            <pc:children pc:name="NotSupported">
+              <pc:rules>StandardCommands.response(2306, "Domain Transfer not supported during Launch.")</pc:rules>
+            </pc:children>
+          </pc:answerFalse>
+        </pc:branch>
+      </pc:activities>
+    </pc:events>
+    <pc:events pc:name="PendingTransferUpdate">
+      <pc:activities pc:name="AdjustAutoRenew">
+        <pc:rules>DomainPolicy.setAutoRenew(True)</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="setLosingRar">
+        <pc:rules>global losingRar</pc:rules>
+        <pc:rules>losingRar = DomainPolicy.getRegistrarName()</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="Command:Domain,Transfer">
+        <pc:rules>#this also transfers the subordinate hosts</pc:rules>
+        <pc:rules>StandardCommands.transfer(ignoreAuthInfo=True)</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="Commit">
+        <pc:rules>StandardCommands.commit()</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="RefundCheck">
+        <pc:rules>#if the domain was in the autoRenew phase</pc:rules>
+        <pc:rules>#then the previous registrar gets a refund</pc:rules>
+        <pc:rules>#check back 5 days due to pendingTransfer of 5 days</pc:rules>
+        <pc:rules>if DomainPolicy.checkStatusWasCreatedWithinXofTimerTrigger('pendingTransfer', '45 days', 'Auto_Renew'):</pc:rules>
+        <pc:rules>  if PolicyExec.getRegistrar() not in NonBillableRegistrars:</pc:rules>
+        <pc:rules></pc:rules>
+        <pc:rules>    if RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170,8190]):</pc:rules>
+        <pc:rules>#make sure we get the renewal product code</pc:rules>
+        <pc:rules>      log.warning("DOMAIN IDENTIFIED IN PREMIUM LIST")</pc:rules>
+        <pc:rules>      PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170,8190], defaultProductCode=RENEWAL_PRODUCT_CODE, defaultZone=None, defaultAction=None, orderDesc=False, eppCommandMapping={'transfer_request':'renew'})</pc:rules>
+        <pc:rules>    else:</pc:rules>
+        <pc:rules>      PRODUCT_CODE = RENEWAL_PRODUCT_CODE</pc:rules>
+        <pc:rules>#retrieve the last charged price to ensure that we refund correctly</pc:rules>
+        <pc:rules>    try:</pc:rules>
+        <pc:rules>      prodCost=Accounts.getLastChargedPrice(productcode=PRODUCT_CODE, domain=PolicyExec.getObjectName(),registrar = losingRar)</pc:rules>
+        <pc:rules>      Accounts.refund(productcode=PRODUCT_CODE, registrar=losingRar, prodcost=prodCost)</pc:rules>
+        <pc:rules>    except Exception as e:</pc:rules>
+        <pc:rules>      log.exception(e)</pc:rules>
+        <pc:rules>      log.debug("Product Code is %s . Registrar refunded is %s . Product cost identifed is %s ." % (PRODUCT_CODE, losingRar , prodCost))</pc:rules>
+        <pc:rules>      PolicyExec.sendNotification("ERROR IN REFUNDING FOR RYCE DOMAIN NAME", template="techsupport.html", email="support@dnservices.co.za")</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="PostLosingRarMessage">
+        <pc:rules>StandardCommands.response(1000, "Outbound transfer of '%s' was APPROVED" % PolicyExec.getObjectName())</pc:rules>
+        <pc:rules>StandardCommands.postMessage("DNServices", losingRar) # This will send to losing registrar</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="PostMessage">
+        <pc:rules>StandardCommands.response(1000, "Inbound transfer of '%s' was APPROVED" % PolicyExec.getObjectName())</pc:rules>
+        <pc:rules>StandardCommands.postMessage("DNServices")</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="SetPeriod">
+        <pc:rules>DomainPolicy.adjustPeriod(period="1", unit="y")</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="IncreaseRegPeriod">
+        <pc:rules>#attempts to increase the registration period by 1 year if possible</pc:rules>
+        <pc:rules># This is from RefundCheck above. Don't increase the year if it was in autoRenewPeriod</pc:rules>
+        <pc:rules>if DomainPolicy.checkStatusWasCreatedWithinXofTimerTrigger('pendingTransfer', '45 days', 'Auto_Renew'):</pc:rules>
+        <pc:rules>  if PolicyExec.getRegistrar() not in NonBillableRegistrars:</pc:rules>
+        <pc:rules>    if RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170]):</pc:rules>
+        <pc:rules>      log.warning("DOMAIN IDENTIFIED IN PREMIUM LIST")</pc:rules>
+        <pc:rules>      PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=RENEWAL_PRODUCT_CODE, defaultZone=None, defaultAction=None, orderDesc=False, eppCommandMapping={'transfer_request':'renew'})</pc:rules>
+        <pc:rules>    else:</pc:rules>
+        <pc:rules>      PRODUCT_CODE = RENEWAL_PRODUCT_CODE</pc:rules>
+        <pc:rules></pc:rules>
+        <pc:rules>    if Accounts.chargeCheck(PRODUCT_CODE, throw=False):</pc:rules>
+        <pc:rules>      Accounts.charge(PRODUCT_CODE)</pc:rules>
+        <pc:rules>    else:</pc:rules>
+        <pc:rules>        PolicyExec.startTimer("Domain", "PendingTransferFSCharge", "8 hours", pid=PolicyExec.getObjectPID())</pc:rules>
+        <pc:rules>#normal transfer outside of autoRenewPeriod so increase date by 1 year</pc:rules>
+        <pc:rules>else:</pc:rules>
+        <pc:rules>  if DomainPolicy.extendExpiry(period="1 year", maximumExpiry="10 years"):</pc:rules>
+        <pc:rules>    if PolicyExec.getRegistrar() not in NonBillableRegistrars:</pc:rules>
+        <pc:rules>      if RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170]):</pc:rules>
+        <pc:rules>#make sure we get the renewal product code</pc:rules>
+        <pc:rules>        log.warning("DOMAIN IDENTIFIED IN PREMIUM LIST")</pc:rules>
+        <pc:rules>        PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=RENEWAL_PRODUCT_CODE, defaultZone=None, defaultAction=None, orderDesc=False, eppCommandMapping={'transfer_request':'renew'})</pc:rules>
+        <pc:rules>      else:</pc:rules>
+        <pc:rules>        PRODUCT_CODE = RENEWAL_PRODUCT_CODE</pc:rules>
+        <pc:rules></pc:rules>
+        <pc:rules>      if Accounts.chargeCheck(PRODUCT_CODE, throw=False):</pc:rules>
+        <pc:rules>        Accounts.charge(PRODUCT_CODE)</pc:rules>
+        <pc:rules>      else:</pc:rules>
+        <pc:rules>        PolicyExec.startTimer("Domain", "PendingTransferFSCharge", "8 hours", pid=PolicyExec.getObjectPID())</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="DomainState:Active">
+        <pc:rules>DomainPolicy.removeState("pendingTransfer")</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="ClearOtherPending">
+        <pc:rules># NB: CHECK FOR ALL PENDING TIMERS, ESPECIALLY WITH RGP STATUSES</pc:rules>
+        <pc:rules># Cancel other pending transfers for the domain.</pc:rules>
+        <pc:rules>DomainPolicy.cancelPendingAction(eventName="PendingTransferUpdate", registryID="EPPServer", admin=True, pid=PolicyExec.getObjectPID())</pc:rules>
+        <pc:rules>DomainPolicy.cancelPendingAction(eventName="AGPRenew", registryID="EPPServer", admin=True, pid=PolicyExec.getObjectPID())</pc:rules>
+        <pc:rules>DomainPolicy.cancelPendingAction(eventName="AGPTransferUpdate", registryID="EPPServer", admin=True, pid=PolicyExec.getObjectPID())</pc:rules>
+        <pc:rules>DomainPolicy.cancelPendingAction(eventName="AGPAutorenew", registryID="EPPServer", admin=True, pid=PolicyExec.getObjectPID())</pc:rules>
+        <pc:rules>DomainPolicy.removeState("pendingDelete")</pc:rules>
+        <pc:rules>DomainPolicy.removeState("inactive")</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="AddAGPStatus">
+        <pc:rules>#add the "transferPeriod" AGP status</pc:rules>
+        <pc:rules>DomainPolicy.adjustRGPState(None)</pc:rules>
+        <pc:rules>DomainPolicy.adjustRGPState(status='transferPeriod', message='Domain in Transfer Period')</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="AGPTransferPeriod">
+        <pc:rules>PolicyExec.startTimer("Domain", "AGPTransfer", PolicyPeriod, pid=PolicyExec.getObjectPID())</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="SetHostStatus">
+        <pc:rules>#adjust the host status to 'ok' because transfer was approved</pc:rules>
+        <pc:rules>DomainPolicy.adjustSubordinateHostsStatus(status=None)</pc:rules>
+        <pc:rules>DomainPolicy.adjustSubordinateHostsStatus(status='ok')</pc:rules>
+      </pc:activities>
+    </pc:events>
+    <pc:events pc:name="AGPTransfer">
+      <pc:activities pc:name="RemoveAGPTransferStatus">
+        <pc:rules>#remove the transferPeriod AGP status</pc:rules>
+        <pc:rules>DomainPolicy.removeRGPState(status='transferPeriod')</pc:rules>
+      </pc:activities>
+    </pc:events>
+    <pc:events pc:name="Update">
+      <pc:activities pc:name="ExtensionUseCheck">
+        <pc:rules>#checks for the autorenew extension being used</pc:rules>
+        <pc:rules>#the extension is not allowed</pc:rules>
+        <pc:rules>if PolicyExec.payloadContains("//cozad:update"):</pc:rules>
+        <pc:rules>  raise EPPError(2103, "Autorenew extension not supported")</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="PhaseCheck">
+        <pc:branch pc:decision="DomainPolicy.exists(throws=False) or PolicyExec.dateCompare(GeneralAvailabilityStart, result=(True, True, False), grain=&quot;hour&quot;)">
+          <pc:answerTrue pc:name="AnswerTrue">
+            <pc:children pc:name="RestoreCheck">
+              <pc:rules>#Branch this into an if statement to check if there</pc:rules>
+              <pc:rules>#is a restore request or restore report in the EPP</pc:rules>
+              <pc:branch pc:decision="PolicyExec.payloadContains(&quot;//rgp:update/rgp:restore[@op='request']&quot;)">
+                <pc:answerTrue pc:name="AnswerTrue">
+                  <pc:rules>#is looking to restore</pc:rules>
+                  <pc:children pc:name="IsPendingDelete">
+                    <pc:rules>#cannot restore domain while in pendingDelete</pc:rules>
+                    <pc:rules>if (DomainPolicy.RGPStatusCheck(["pendingDelete"], invert=False, throw=False)):</pc:rules>
+                    <pc:rules>  raise EPPError(2105, "Domain pending delete")</pc:rules>
+                  </pc:children>
+                  <pc:children pc:name="IsRestorableCheck">
+                    <pc:rules>#checks to see if the domain is in the redemption phase</pc:rules>
+                    <pc:rules>#NB, including another process first to restore stuck domains</pc:rules>
+                    <pc:rules>if DomainPolicy.statusCheck(["pendingDelete"], invert=False, throw=False) and DomainPolicy.statusCheck(["serverUpdateProhibited"], invert=False, throw=False):</pc:rules>
+                    <pc:rules>#domain is stuck. Remove current statuses, set only pendingeDelete and allow to continue</pc:rules>
+                    <pc:rules>  DomainPolicy.adjustState("ok", validate=False)</pc:rules>
+                    <pc:rules>  DomainPolicy.adjustState("pendingDelete", validate=False)</pc:rules>
+                    <pc:rules>else:</pc:rules>
+                    <pc:rules>  if not DomainPolicy.RGPStatusCheck(["redemptionPeriod"], invert=False, throw=False):</pc:rules>
+                    <pc:rules>    raise EPPError(2105, "Domain not eligible for restoration")</pc:rules>
+                  </pc:children>
+                  <pc:children pc:name="SetRestoreStatus">
+                    <pc:rules>#sets the pendingRestore RGP status</pc:rules>
+                    <pc:rules>DomainPolicy.adjustRGPState(None)</pc:rules>
+                    <pc:rules>DomainPolicy.adjustRGPState(status='pendingRestore', message='Domain Pending Restore')</pc:rules>
+                  </pc:children>
+                  <pc:children pc:name="ChargeCheckSupport">
+                    <pc:rules>if RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170]):</pc:rules>
+                    <pc:rules>#make sure we get the renewal product code</pc:rules>
+                    <pc:rules>  PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=RESTORE_PRODUCT_CODE, defaultZone=None, defaultAction='restore', orderDesc=False)</pc:rules>
+                    <pc:rules>else:</pc:rules>
+                    <pc:rules>  PRODUCT_CODE = RESTORE_PRODUCT_CODE</pc:rules>
+                    <pc:rules></pc:rules>
+                    <pc:rules>if ContactPolicy.checkRegistrarSupport('fee'):</pc:rules>
+                    <pc:rules>  FeesCommands.update(description='domain:restore:request', applied='immediate', productCode=PRODUCT_CODE, exVat=True, refundable=False, includePeriod=False, throw=False, currencyOverride=None)</pc:rules>
+                  </pc:children>
+                  <pc:children pc:name="SetResponse">
+                    <pc:rules>#include the RGP extension to show pendingRestore</pc:rules>
+                    <pc:rules>#as per https://www.ietf.org/rfc/rfc3915.txt</pc:rules>
+                    <pc:rules>#   S:    &lt;extension&gt;</pc:rules>
+                    <pc:rules>#   S:      &lt;rgp:upData xmlns:rgp="urn:ietf:params:xml:ns:rgp-1.0"</pc:rules>
+                    <pc:rules>#   S:       xsi:schemaLocation="urn:ietf:params:xml:ns:rgp-1.0</pc:rules>
+                    <pc:rules>#   S:       rgp-1.0.xsd"&gt;</pc:rules>
+                    <pc:rules>#   S:        &lt;rgp:rgpStatus s="pendingRestore"/&gt;</pc:rules>
+                    <pc:rules>#   S:      &lt;/rgp:upData&gt;</pc:rules>
+                    <pc:rules>#   S:    &lt;/extension&gt; </pc:rules>
+                    <pc:rules>StandardCommands.response(1000, "Command completed successfully")</pc:rules>
+                  </pc:children>
+                  <pc:children pc:name="StartTimerPendingRestore">
+                    <pc:rules>#start the 7 day timer to receive a restore report</pc:rules>
+                    <pc:rules>PolicyExec.startTimer("Domain", "PendingRestore", RestoreReportPeriod, pid=PolicyExec.getObjectPID())</pc:rules>
+                    <pc:rules></pc:rules>
+                  </pc:children>
+                  <pc:children pc:name="CPAPendingRedemption">
+                    <pc:rules>DomainPolicy.cancelPendingAction(eventName="PendingRedemption", registryID="EPPServer", admin=True, pid=PolicyExec.getObjectPID())</pc:rules>
+                  </pc:children>
+                </pc:answerTrue>
+                <pc:answerFalse pc:name="AnswerFalse">
+                  <pc:rules>#check if trying to submit report</pc:rules>
+                  <pc:branch pc:decision="PolicyExec.payloadContains(&quot;//rgp:update/rgp:restore[@op='report']&quot;)">
+                    <pc:answerTrue pc:name="AnswerTrue">
+                      <pc:rules>#is submitting report</pc:rules>
+                      <pc:children pc:name="IsPendingDelete">
+                        <pc:rules>#cannot restore domain while in pendingDelete</pc:rules>
+                        <pc:rules>if (DomainPolicy.RGPStatusCheck(["pendingDelete"], invert=False, throw=False)):</pc:rules>
+                        <pc:rules>  raise EPPError(2105, "Domain pending delete")</pc:rules>
+                      </pc:children>
+                      <pc:children pc:name="IsRestorableCheck">
+                        <pc:rules>#checks to see if the domain is in the redemption phase</pc:rules>
+                        <pc:rules>if not DomainPolicy.RGPStatusCheck(["pendingRestore"], invert=False, throw=False):</pc:rules>
+                        <pc:rules>  raise EPPError(2105, "Domain not pending restore")</pc:rules>
+                      </pc:children>
+                      <pc:children pc:name="BalanceCheck">
+                        <pc:rules>if PolicyExec.getRegistrar() not in NonBillableRegistrars:</pc:rules>
+                        <pc:rules>  Accounts.chargeCheck(RESTORE_PRODUCT_CODE)</pc:rules>
+                      </pc:children>
+                      <pc:children pc:name="SetStatusOk">
+                        <pc:rules>#sets the correct statuses for restored domain name</pc:rules>
+                        <pc:rules>DomainPolicy.adjustRGPState(None)</pc:rules>
+                        <pc:rules>DomainPolicy.adjustState(status='ok')</pc:rules>
+                      </pc:children>
+                      <pc:children pc:name="CancelPendingRestoreTimer">
+                        <pc:rules>DomainPolicy.cancelPendingAction(eventName="PendingRestore", registryID="EPPServer", admin=True, pid=PolicyExec.getObjectPID())</pc:rules>
+                      </pc:children>
+                      <pc:children pc:name="SetResponse">
+                        <pc:rules>StandardCommands.response(1000, "Command completed successfully")</pc:rules>
+                      </pc:children>
+                      <pc:children pc:name="Accounting">
+                        <pc:rules>if PolicyExec.getRegistrar() not in NonBillableRegistrars:</pc:rules>
+                        <pc:rules>  Accounts.charge(RESTORE_PRODUCT_CODE)</pc:rules>
+                      </pc:children>
+                      <pc:children pc:name="SetHostStatus">
+                        <pc:rules>#adjust the host status to 'ok' because the deletion got cancelled</pc:rules>
+                        <pc:rules>DomainPolicy.adjustSubordinateHostsStatus(status=None)</pc:rules>
+                        <pc:rules>DomainPolicy.adjustSubordinateHostsStatus(status='ok')</pc:rules>
+                      </pc:children>
+                      <pc:children pc:name="RestoreDomain">
+                        <pc:rules>#charges for the domain restore</pc:rules>
+                        <pc:rules>#calls for a renew if domain is expired</pc:rules>
+                        <pc:rules>if DomainPolicy.isExpired():</pc:rules>
+                        <pc:rules>  DomainPolicy.transformUpdateToRenew()  </pc:rules>
+                        <pc:rules>  PolicyExec.dispatchEvent("Domain", "Restore_Domain", pid=PolicyExec.getObjectPID())</pc:rules>
+                      </pc:children>
+                    </pc:answerTrue>
+                    <pc:answerFalse pc:name="AnswerFalse">
+                      <pc:rules>#just a standard update</pc:rules>
+                      <pc:children pc:name="DomainStatusCheck">
+                        <pc:rules>if DomainPolicy.statusCheck(["clientUpdateProhibited"], invert=False, throw=False) and not PolicyExec.payloadContains("//domain:rem/domain:status[@s='clientUpdateProhibited']"):</pc:rules>
+                        <pc:rules>  DomainPolicy.statusCheck(["clientUpdateProhibited"], invert=True, throw=True)  </pc:rules>
+                        <pc:rules>else:</pc:rules>
+                        <pc:rules>  DomainPolicy.statusCheck(["pendingUpdate","serverUpdateProhibited","pendingDelete"], invert=True)</pc:rules>
+                      </pc:children>
+                      <pc:children pc:name="Validations">
+                        <pc:children pc:name="UpdateServerStatusCheck">
+                          <pc:rules>DomainPolicy.updateServerStatusCheck(allow=False)</pc:rules>
+                        </pc:children>
+                        <pc:children pc:name="ConstraintsCheck">
+                          <pc:rules>PolicyExec.fieldConstraintsValidation()</pc:rules>
+                        </pc:children>
+                        <pc:children pc:name="DomainOwnershipCheck">
+                          <pc:rules>DomainPolicy.ownershipCheck()</pc:rules>
+                        </pc:children>
+                        <pc:children pc:name="DomainRegistrantCheck ">
+                          <pc:rules>DomainPolicy.registrantCheck() </pc:rules>
+                        </pc:children>
+                        <pc:children pc:name="ContactOwnershipCheck">
+                          <pc:rules># Check that the contact is owned by the RAR.</pc:rules>
+                          <pc:rules>ContactPolicy.ownershipCheck()</pc:rules>
+                        </pc:children>
+                      </pc:children>
+                      <pc:children pc:name="Command:Domain,Update,DryRun">
+                        <pc:rules>try:</pc:rules>
+                        <pc:rules>  StandardCommands.update(dryRun = False, hostObj=(not API)) # False to test NS count, then we rollback</pc:rules>
+                        <pc:rules>  if DomainPolicy.isNameserverCountLessThan(NameserverCount) or DomainPolicy.getNameserverCount() &gt; MaxNameserverCount:</pc:rules>
+                        <pc:rules>    raise EPPError(2306, "A domain update cannot result in less than %s or more than %s nameservers" % (NameserverCount, MaxNameserverCount))</pc:rules>
+                        <pc:rules> </pc:rules>
+                        <pc:rules>finally:</pc:rules>
+                        <pc:rules>  StandardCommands.rollback()</pc:rules>
+                      </pc:children>
+                      <pc:children pc:name="DomainState:PendingUpdate">
+                        <pc:rules>DomainPolicy.adjustState("pendingUpdate", validate=False)</pc:rules>
+                      </pc:children>
+                      <pc:children pc:name="InvokeEvent">
+                        <pc:rules>PolicyExec.invokeEvent("Domain", "PendingUpdate")</pc:rules>
+                      </pc:children>
+                    </pc:answerFalse>
+                  </pc:branch>
+                </pc:answerFalse>
+              </pc:branch>
+            </pc:children>
+          </pc:answerTrue>
+          <pc:answerFalse pc:name="AnswerFalse">
+            <pc:children pc:name="NotSupported">
+              <pc:rules>StandardCommands.response(2306, "Domain Update not supported during Launch.")</pc:rules>
+            </pc:children>
+          </pc:answerFalse>
+        </pc:branch>
+      </pc:activities>
+    </pc:events>
+    <pc:events pc:name="PendingRestore">
+      <pc:activities pc:name="AdjustRGPStatus">
+        <pc:rules>#awaiting the report. If it does not arrive then restart the redemption period</pc:rules>
+        <pc:rules>#add the redemptionPeriod RGP status</pc:rules>
+        <pc:rules>DomainPolicy.adjustRGPState(status='redemptionPeriod', message='Domain in Redemption Period')</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="AdjustDomainStatus">
+        <pc:rules>DomainPolicy.adjustState("pendingDelete", validate=False)</pc:rules>
+        <pc:rules>#as per icann expired registration recovery policy</pc:rules>
+        <pc:rules>DomainPolicy.addState("serverHold", validate=False)</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="RestartRedemption">
+        <pc:rules>#restart the redemption timer</pc:rules>
+        <pc:rules>PolicyExec.startTimer("Domain", "PendingRedemption", RedemptionPeriod, pid=PolicyExec.getObjectPID())</pc:rules>
+      </pc:activities>
+    </pc:events>
+    <pc:events pc:name="PendingUpdate">
+      <pc:activities pc:name="DomainState:Active">
+        <pc:rules>DomainPolicy.removeState("pendingUpdate")</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="CheckNSAdd">
+        <pc:rules>#checks if new nameservers are bneing added</pc:rules>
+        <pc:rules>#if they are then the status of inactive must be removed</pc:rules>
+        <pc:rules>if PolicyExec.payloadContains("//domain:add/domain:ns"):</pc:rules>
+        <pc:rules>  DomainPolicy.removeState("inactive")</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="Command:Domain,Update">
+        <pc:rules>try:</pc:rules>
+        <pc:rules>  StandardCommands.update(hostObj=(not API))</pc:rules>
+        <pc:rules>except EPPError as e:</pc:rules>
+        <pc:rules>  # remove the pendingUpdate status if update fails</pc:rules>
+        <pc:rules>  StandardCommands.rollback()</pc:rules>
+        <pc:rules>  DomainPolicy.removeState("pendingUpdate")</pc:rules>
+        <pc:rules>  StandardCommands.commit()</pc:rules>
+        <pc:rules>  raise e</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="UpdateCommit">
+        <pc:rules>StandardCommands.commit()</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="SetResponse">
+        <pc:rules>StandardCommands.response(1000, "Command completed successfully")</pc:rules>
+      </pc:activities>
+    </pc:events>
+    <pc:events pc:name="Auto_Renew">
+      <pc:activities pc:name="LockDomain">
+        <pc:rules>DomainPolicy.lockDomain(throws=True, wait=False)</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="Command:Domain,Renew">
+        <pc:rules>if DomainPolicy.isExpired(): #Additional test to prevent thread concurrency hitting the test at the same time</pc:rules>
+        <pc:rules>  StandardCommands.renew(dryRun=False, admin=True)</pc:rules>
+        <pc:rules>else:</pc:rules>
+        <pc:rules>  raise EPPError(2105, "Unable to auto renew - domain already renewed")</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="AccountCommit">
+        <pc:rules>try:</pc:rules>
+        <pc:rules>  if PolicyExec.getRegistrar() not in NonBillableRegistrars:</pc:rules>
+        <pc:rules>    if RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170]):</pc:rules>
+        <pc:rules>#make sure we get the renewal product code</pc:rules>
+        <pc:rules>      PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=RENEWAL_PRODUCT_CODE, defaultZone=None, defaultAction='renew', orderDesc=False)</pc:rules>
+        <pc:rules>    else:</pc:rules>
+        <pc:rules>      PRODUCT_CODE = RENEWAL_PRODUCT_CODE</pc:rules>
+        <pc:rules></pc:rules>
+        <pc:rules>    Accounts.charge(PRODUCT_CODE)</pc:rules>
+        <pc:rules></pc:rules>
+        <pc:rules>except Exception as ex:</pc:rules>
+        <pc:rules>  StandardCommands.rollback() #Rollback the renewal - to requeue the timer</pc:rules>
+        <pc:rules>  PolicyExec.startTimer("Domain", "Auto_Renew", "15 minutes", pid=PolicyExec.getObjectPID())</pc:rules>
+        <pc:rules>  StandardCommands.commit()</pc:rules>
+        <pc:rules>  log.exception("There was an error billing for domain renewal.", ex)</pc:rules>
+        <pc:rules>  raise ex # Have to reraise otherwise the renew is going to be run</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="SetAGPAStatus">
+        <pc:rules>#set the "autoRenewPeriod" AGP status</pc:rules>
+        <pc:rules># start 45 day timer to remove the status</pc:rules>
+        <pc:rules>DomainPolicy.adjustRGPState('autoRenewPeriod', message='Domain in Auto Renew Period')</pc:rules>
+        <pc:rules>PolicyExec.startTimer("Domain", "AGPAutorenew", AutoRenewPeriod, pid=PolicyExec.getObjectPID())</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="PostMessage (REDO)">
+        <pc:rules>StandardCommands.postMessage(registryID="DNServices")</pc:rules>
+      </pc:activities>
+    </pc:events>
+    <pc:events pc:name="AGPAutorenew">
+      <pc:activities pc:name="RemoveAutorenewStatus">
+        <pc:rules>#remove the autoRenewPeriod AGP status</pc:rules>
+        <pc:rules>DomainPolicy.removeRGPState(status='autoRenewPeriod')</pc:rules>
+      </pc:activities>
+    </pc:events>
+    <pc:events pc:name="SetPeriod">
+      <pc:activities pc:name="DefaultOneYear">
+        <pc:rules>DomainPolicy.adjustPeriod(period="1", unit="y")</pc:rules>
+      </pc:activities>
+    </pc:events>
+    <pc:events pc:name="PendingNameCollision">
+      <pc:activities pc:name="AccountCharge">
+        <pc:rules>DomainPolicy.removeState("serverHold", CreateNameCollisionMessage)</pc:rules>
+      </pc:activities>
+    </pc:events>
+    <pc:events pc:name="Restore_Domain">
+      <pc:activities pc:name="Restore">
+        <pc:rules>#performs a renew on the domain if it is expired and a restore was performed</pc:rules>
+        <pc:rules>StandardCommands.renew(dryRun=False, admin=True)</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="Accounting">
+        <pc:rules>if RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170]):</pc:rules>
+        <pc:rules>  PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=RENEWAL_PRODUCT_CODE, defaultZone=None, defaultAction='renew', orderDesc=False)</pc:rules>
+        <pc:rules>else:</pc:rules>
+        <pc:rules>  PRODUCT_CODE=RENEWAL_PRODUCT_CODE</pc:rules>
+        <pc:rules></pc:rules>
+        <pc:rules>Accounts.charge(PRODUCT_CODE)</pc:rules>
+      </pc:activities>
+    </pc:events>
+  </pc:objects>
+  <pc:objects pc:name="Contact">
+    <pc:events pc:name="Create">
+      <pc:activities pc:name="RNLCheck">
+        <pc:rules>RNLPolicy.checkObject(throw=True)</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="Validations">
+        <pc:children pc:name="Availability">
+          <pc:rules>ContactPolicy.isAvailable()</pc:rules>
+        </pc:children>
+        <pc:children pc:name="ConstraintsCheck">
+          <pc:rules>PolicyExec.fieldConstraintsValidation()</pc:rules>
+        </pc:children>
+        <pc:children pc:name="AddressType2Encoding">
+          <pc:rules>if not PolicyExec.isEncodedAs("//contact:postalInfo[@type='int']//text()", 'ascii'):</pc:rules>
+          <pc:rules>  raise EPPError(2004,"Internationalised contact address must only contain ascii characters.")</pc:rules>
+        </pc:children>
+      </pc:activities>
+      <pc:activities pc:name="Command:Contact,Create">
+        <pc:rules>StandardCommands.create()</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="SetResponse (REDO)">
+        <pc:rules>StandardCommands.response(1000, "Contact Creation Successful")</pc:rules>
+      </pc:activities>
+    </pc:events>
+    <pc:events pc:name="Delete">
+      <pc:activities pc:name="OwnershipCheck">
+        <pc:rules>ContactPolicy.ownershipCheck()</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="RantStatusCheck">
+        <pc:rules>ContactPolicy.statusCheck(["ok", "linked"])</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="Existence">
+        <pc:rules>ContactPolicy.exists()</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="DependencyCheck">
+        <pc:rules>ContactPolicy.dependencyCheck()</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="Command:Contact,Delete">
+        <pc:rules>StandardCommands.delete()</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="SetResponse (REDO)">
+        <pc:rules>StandardCommands.response(1000, "Contact Deletion Successful")</pc:rules>
+      </pc:activities>
+    </pc:events>
+    <pc:events pc:name="Update">
+      <pc:activities pc:name="RarUpdate">
+        <pc:rules>#if its a registrar account update, dont allow</pc:rules>
+        <pc:rules>#if ContactPolicy.isRar():</pc:rules>
+        <pc:rules>#  raise EPPError(2201,"Registrar accounts must be updated in the Registrar Panel.")</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="Existence">
+        <pc:rules>ContactPolicy.exists()</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="OwnershipCheck">
+        <pc:rules>ContactPolicy.ownershipCheck()</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="ContactStatusCheck">
+        <pc:rules>ContactPolicy.statusCheck(["pendingUpdate","pendingDelete","serverUpdateProhibited"], invert=True)</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="ContactUpdateProhibitedCheck">
+        <pc:rules>if not PolicyExec.payloadContains('//contact:rem/contact:status[@s="clientUpdateProhibited"]'):</pc:rules>
+        <pc:rules>  ContactPolicy.statusCheck(["clientUpdateProhibited"], invert=True)</pc:rules>
+        <pc:rules>  </pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="Validation">
+        <pc:children pc:name="UpdateServerStatusCheck">
+          <pc:rules>ContactPolicy.updateServerStatusCheck(allow=False)</pc:rules>
+        </pc:children>
+        <pc:children pc:name="ConstraintsCheck">
+          <pc:rules>PolicyExec.fieldConstraintsValidation()</pc:rules>
+        </pc:children>
+        <pc:children pc:name="AddressType2Encoding">
+          <pc:rules>if not PolicyExec.isEncodedAs("//contact:postalInfo[@type='int']//text()", 'ascii'):</pc:rules>
+          <pc:rules>  raise EPPError(2004,"Internationalised contact address must only contain ascii characters.")</pc:rules>
+        </pc:children>
+      </pc:activities>
+      <pc:activities pc:name="Command:Contact,Update,DryRun">
+        <pc:rules>StandardCommands.update(dryRun=True) </pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="Command:Contact,Update">
+        <pc:rules>try:</pc:rules>
+        <pc:rules>  StandardCommands.update()</pc:rules>
+        <pc:rules>except EPPError:</pc:rules>
+        <pc:rules>  StandardCommands.rollback()</pc:rules>
+        <pc:rules>  raise</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="Commit">
+        <pc:rules>StandardCommands.commit()</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="SetResponse (REDO)">
+        <pc:rules>StandardCommands.response(1000, "Contact '%s' Update Successful" % (PolicyExec.getObjectName()))</pc:rules>
+      </pc:activities>
+    </pc:events>
+    <pc:events pc:name="Info">
+      <pc:activities pc:name="RNLCheck">
+        <pc:rules>RNLPolicy.checkObject(throw=True)</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="Command:Contact,Info">
+        <pc:rules>StandardCommands.info()</pc:rules>
+      </pc:activities>
+    </pc:events>
+    <pc:events pc:name="Check">
+      <pc:activities pc:name="RNLCheck">
+        <pc:rules>RNLPolicy.checkObject(throw=True)</pc:rules>
+      </pc:activities>
+      <pc:activities pc:name="Command:Contact,Check">
+        <pc:rules>StandardCommands.check()</pc:rules>
+      </pc:activities>
+    </pc:events>
+    <pc:events pc:name="Transfer">
+      <pc:activities pc:name="SetResponse">
+        <pc:rules>StandardCommands.response(2101, "Contact Transfer Unsupported")</pc:rules>
+      </pc:activities>
+    </pc:events>
+  </pc:objects>
+</pc:policyConfig>
