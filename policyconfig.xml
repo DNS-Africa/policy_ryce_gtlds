@@ -99,7 +99,7 @@
       <pc:policylimit pc:xpath="//launch:check/@type" pc:minlen="0" pc:maxlen="0" pc:mincount="0" pc:maxcount="0" pc:regex="avail" pc:code="2306" pc:desc="Launch Check &quot;type&quot; attribute must be &quot;avail&quot;"/>
       <pc:policylimit pc:xpath="//launch:create/smd:encodedSignedMark" pc:minlen="0" pc:maxlen="0" pc:mincount="1" pc:maxcount="1" pc:regex="" pc:code="2306" pc:desc=""/>
       <pc:policylimit pc:xpath="//contact:update/contact:chg/contact:email" pc:minlen="3" pc:maxlen="255" pc:regex="[A-Z0-9a-z._%-]+@[A-Z0-9a-z.\-]+" pc:code="2306" pc:desc=""/>
-      <pc:policylimit pc:xpath="//domain:create/domain:contact" pc:mincount="2" pc:maxcount="10" pc:regex="" pc:code="2306" pc:desc="A minimum of 2 and a maximum 10 contacts allowed."/>
+      <pc:policylimit pc:xpath="//domain:create/domain:contact" pc:mincount="0" pc:maxcount="10" pc:regex="" pc:code="2306" pc:desc="A minimum of 1 and a maximum 10 contacts allowed."/>
       <pc:policylimit pc:xpath="//contact:authInfo/contact:pw" pc:minlen="0" pc:maxlen="0" pc:regex="" pc:code="2307" pc:desc="Contact authorization information is not supported."/>
       <pc:policylimit pc:xpath="//contact:update/contact:authInfo/contact:pw" pc:minlen="0" pc:maxlen="0" pc:regex="" pc:code="2307" pc:desc="Contact authorization information is not supported."/>
       <pc:policylimit pc:xpath="//contact:create/contact:id" pc:minlen="3" pc:maxlen="16" pc:regex="" pc:code="2306" pc:desc="Contact ID must be between 1 and 16 ASCII characters."/>
