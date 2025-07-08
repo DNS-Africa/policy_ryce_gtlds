@@ -99,14 +99,14 @@
       <pc:policylimit pc:xpath="//launch:check/@type" pc:minlen="0" pc:maxlen="0" pc:mincount="0" pc:maxcount="0" pc:regex="avail" pc:code="2306" pc:desc="Launch Check &quot;type&quot; attribute must be &quot;avail&quot;"/>
       <pc:policylimit pc:xpath="//launch:create/smd:encodedSignedMark" pc:minlen="0" pc:maxlen="0" pc:mincount="1" pc:maxcount="1" pc:regex="" pc:code="2306" pc:desc=""/>
       <pc:policylimit pc:xpath="//contact:update/contact:chg/contact:email" pc:minlen="3" pc:maxlen="255" pc:regex="[A-Z0-9a-z._%-]+@[A-Z0-9a-z.\-]+" pc:code="2306" pc:desc=""/>
-      <pc:policylimit pc:xpath="//domain:create/domain:contact" pc:mincount="0" pc:maxcount="10" pc:regex="" pc:code="2306" pc:desc="A minimum of 1 and a maximum 10 contacts allowed."/>
+      <pc:policylimit pc:xpath="//domain:create/domain:contact" pc:mincount="0" pc:maxcount="4" pc:regex="" pc:code="2306" pc:desc="A minimum of 1 and a maximum 4 contacts allowed."/>
       <pc:policylimit pc:xpath="//contact:authInfo/contact:pw" pc:minlen="0" pc:maxlen="0" pc:regex="" pc:code="2307" pc:desc="Contact authorization information is not supported."/>
       <pc:policylimit pc:xpath="//contact:update/contact:authInfo/contact:pw" pc:minlen="0" pc:maxlen="0" pc:regex="" pc:code="2307" pc:desc="Contact authorization information is not supported."/>
       <pc:policylimit pc:xpath="//contact:create/contact:id" pc:minlen="3" pc:maxlen="16" pc:regex="" pc:code="2306" pc:desc="Contact ID must be between 1 and 16 ASCII characters."/>
       <pc:policylimit pc:xpath="//domain:transfer/domain:period" pc:minlen="0" pc:maxlen="1" pc:mincount="0" pc:maxcount="1" pc:regex="(1)" pc:code="2306" pc:desc="Transfer period must be 1 year"/>
       <pc:policylimit pc:xpath="//domain:renew/domain:period/@unit" pc:minlen="1" pc:maxlen="1" pc:regex="^[yY]$" pc:code="2306" pc:desc="Domain period unit 'm' not supported"/>
-      <pc:policylimit pc:xpath="//contact:voice" pc:minlen="1" pc:maxlen="17" pc:regex="((((?!\+27\.[0-9]{1})\+[0-9]{1,3}\.[0-9]{1})|(\+27\.[1-9]{1}))[0-9]{0,13})?" pc:code="2306" pc:desc="Contact phone number requires E.164 formatting"/>
-      <pc:policylimit pc:xpath="//contact:fax" pc:minlen="1" pc:maxlen="17" pc:regex="((((?!\+27\.[0-9]{1})\+[0-9]{1,3}\.[0-9]{1})|(\+27\.[1-9]{1}))[0-9]{0,13})?" pc:code="2306" pc:desc="Contact fax number requires E.164 formatting"/>
+      <pc:policylimit pc:xpath="//contact:voice" pc:minlen="1" pc:maxlen="17" pc:regex="^\+[1-9]\d{1,14}$" pc:code="2306" pc:desc="Contact phone number requires E.164 formatting"/> -->
+      <pc:policylimit pc:xpath="//contact:fax" pc:minlen="1" pc:maxlen="17" pc:regex="^\+[1-9]\d{1,14}$" pc:code="2306" pc:desc="Contact phone number requires E.164 formatting"/> -->
     </pc:constraints>
   </pc:policyParameters>
   <pc:objects pc:name="Domain">
