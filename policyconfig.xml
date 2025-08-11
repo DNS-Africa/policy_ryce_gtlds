@@ -81,7 +81,7 @@
       <pc:library pc:name="FeesCommands" pc:path="FeesCommands" pc:prefix="FeesCommands" pc:type="Python"/>
     </pc:libraries>
     <pc:constraints>
-      <pc:policylimit pc:xpath="//domain:name" pc:minlen="1" pc:maxlen="72" pc:regex="[a-z0-9][a-z-0-9]*\.wien$"/>
+      <pc:policylimit pc:xpath="//domain:name" pc:minlen="1" pc:maxlen="72" pc:regex="[a-z0-9][a-z-0-9]*\.(cologne|koeln|tirol|wien)$"/>
       <pc:policylimit pc:xpath="//contact:create/contact:street" pc:minlen="8" pc:maxlen="255"/>
       <pc:policylimit pc:xpath="//domain:create/domain:ns/domain:hostObj | //domain:create/domain:ns/domain:hostAttr/domain:hostName" pc:maxlen="255" pc:mincount="0" pc:maxcount="13" pc:desc="A minimum of zero and a maximum of thirteen nameservers are required."/>
       <pc:policylimit pc:xpath="//contact:create/contact:addr/contact:city" pc:minlen="2" pc:maxlen="255"/>
