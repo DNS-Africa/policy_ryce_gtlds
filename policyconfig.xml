@@ -151,11 +151,11 @@
             <pc:children pc:name="VerifyChargeSupport">
               <pc:rules>if ContactPolicy.checkRegistrarSupport('fee'):</pc:rules>
               <pc:rules>  PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='premium')</pc:rules>
-              <pc:rules>  if PRODUCT_CODE != PREMIUM_NAME_PRODUCT_CODE:</pc:rules>   
-              <pc:rules>    reason = f"DEBUG: Create()->IsPremiumName()->VerifyChargeSupport(): DOMAIN PRODUCT_CODE MUST BE '{PREMIUM_NAME_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-              <pc:rules>    log.warning(reason)</pc:rules>
-              <pc:rules>    raise EPPError(2308, reason=reason)</pc:rules>
-              <pc:rules>    </pc:rules>
+              <pc:rules>  #if PRODUCT_CODE != PREMIUM_NAME_PRODUCT_CODE:</pc:rules>   
+              <pc:rules>  #  reason = f"DEBUG: Create()->IsPremiumName()->VerifyChargeSupport(): DOMAIN PRODUCT_CODE MUST BE '{PREMIUM_NAME_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+              <pc:rules>  #  log.warning(reason)</pc:rules>
+              <pc:rules>  #  raise EPPError(2308, reason=reason)</pc:rules>
+              <pc:rules>  #  </pc:rules>
               <pc:rules>  PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=PRODUCT_CODE, defaultZone=None, defaultAction=None, orderDesc=False)</pc:rules>
               <pc:rules>  FeesCommands.create(description='domain:create; refundable in addPeriod', applied='immediate', productCode=PRODUCT_CODE, gracePeriod='P5D', exVat=True, refundable=True, includePeriod=False, throw=True, currencyOverride=None)</pc:rules>
               <pc:rules>else:</pc:rules>
@@ -164,11 +164,11 @@
             <pc:children pc:name="AccountChargeCheckPremium">
               <pc:rules>if PolicyExec.getRegistrar() not in NonBillableRegistrars:</pc:rules>
               <pc:rules>  PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='premium')</pc:rules>
-              <pc:rules>  if PRODUCT_CODE != PREMIUM_NAME_PRODUCT_CODE:</pc:rules>   
-              <pc:rules>    reason = f"DEBUG: Create()->IsPremiumName()->AccountChargeCheckPremium(): DOMAIN PRODUCT_CODE MUST BE '{PREMIUM_NAME_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-              <pc:rules>    log.warning(reason)</pc:rules>
-              <pc:rules>    raise EPPError(2308, reason=reason)</pc:rules>
-              <pc:rules>    </pc:rules>
+              <pc:rules>  #if PRODUCT_CODE != PREMIUM_NAME_PRODUCT_CODE:</pc:rules>   
+              <pc:rules>  #  reason = f"DEBUG: Create()->IsPremiumName()->AccountChargeCheckPremium(): DOMAIN PRODUCT_CODE MUST BE '{PREMIUM_NAME_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+              <pc:rules>  #  log.warning(reason)</pc:rules>
+              <pc:rules>  #  raise EPPError(2308, reason=reason)</pc:rules>
+              <pc:rules>  #  </pc:rules>
               <pc:rules>  PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=PRODUCT_CODE, defaultZone=None, defaultAction=None, orderDesc=False)</pc:rules>
               <pc:rules>  Accounts.chargeCheck(PRODUCT_CODE)</pc:rules>
             </pc:children>
@@ -176,11 +176,11 @@
               <pc:rules>#check that the amount provided in the extension matches the cost</pc:rules>
               <pc:rules>#if not then throw error for mismatch of payment amount</pc:rules>
               <pc:rules>PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='premium')</pc:rules>
-              <pc:rules>if PRODUCT_CODE != PREMIUM_NAME_PRODUCT_CODE:</pc:rules>   
-              <pc:rules>  reason = f"DEBUG: Create()->IsPremiumName()->FeeExtensionCheck(): DOMAIN PRODUCT_CODE MUST BE '{PREMIUM_NAME_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-              <pc:rules>  log.warning(reason)</pc:rules>
-              <pc:rules>  raise EPPError(2308, reason=reason)</pc:rules>
-              <pc:rules>  </pc:rules>
+              <pc:rules>#if PRODUCT_CODE != PREMIUM_NAME_PRODUCT_CODE:</pc:rules>   
+              <pc:rules>#  reason = f"DEBUG: Create()->IsPremiumName()->FeeExtensionCheck(): DOMAIN PRODUCT_CODE MUST BE '{PREMIUM_NAME_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+              <pc:rules>#  log.warning(reason)</pc:rules>
+              <pc:rules>#  raise EPPError(2308, reason=reason)</pc:rules>
+              <pc:rules>#  </pc:rules>
               <pc:rules>PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=PRODUCT_CODE, defaultZone=None, defaultAction=None, orderDesc=False)</pc:rules>
               <pc:rules>FeesCommands.create(description='domain:create; refundable in addPeriod', applied='immediate', productCode=PRODUCT_CODE, gracePeriod='P5D', exVat=True, refundable=True, includePeriod=True, throw=False, currencyOverride=None)</pc:rules>
             </pc:children>
@@ -196,11 +196,11 @@
             <pc:children pc:name="AccountCharge">
               <pc:rules>try:</pc:rules>
               <pc:rules>  PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='premium')</pc:rules>
-              <pc:rules>  if PRODUCT_CODE != PREMIUM_NAME_PRODUCT_CODE:</pc:rules>   
-              <pc:rules>    reason = f"DEBUG: Create()->IsPremiumName()->AccountCharge(): DOMAIN PRODUCT_CODE MUST BE '{PREMIUM_NAME_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-              <pc:rules>    log.warning(reason)</pc:rules>
-              <pc:rules>    raise EPPError(2308, reason=reason)</pc:rules>
-              <pc:rules>    </pc:rules>
+              <pc:rules>  #if PRODUCT_CODE != PREMIUM_NAME_PRODUCT_CODE:</pc:rules>   
+              <pc:rules>  #  reason = f"DEBUG: Create()->IsPremiumName()->AccountCharge(): DOMAIN PRODUCT_CODE MUST BE '{PREMIUM_NAME_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+              <pc:rules>  #  log.warning(reason)</pc:rules>
+              <pc:rules>  #  raise EPPError(2308, reason=reason)</pc:rules>
+              <pc:rules>  #  </pc:rules>
               <pc:rules>  PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=PRODUCT_CODE, defaultZone=None, defaultAction=None, orderDesc=False)</pc:rules>
               <pc:rules>  if Accounts.chargeCheck(PRODUCT_CODE, throw=False):</pc:rules>
               <pc:rules>    Accounts.charge(PRODUCT_CODE)</pc:rules>
@@ -218,11 +218,11 @@
             <pc:children pc:name="PopulateFeeCheckExtension">
               <pc:rules>#redo the check to populate the fee extension response</pc:rules>
               <pc:rules>PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='premium')</pc:rules>
-              <pc:rules>if PRODUCT_CODE != PREMIUM_NAME_PRODUCT_CODE:</pc:rules>   
-              <pc:rules>  reason = f"DEBUG: Create()->IsPremiumName()->PopulateFeeCheckExtension(): DOMAIN PRODUCT_CODE MUST BE '{PREMIUM_NAME_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-              <pc:rules>  log.warning(reason)</pc:rules>
-              <pc:rules>  raise EPPError(2308, reason=reason)</pc:rules>
-              <pc:rules>  </pc:rules>
+              <pc:rules>#if PRODUCT_CODE != PREMIUM_NAME_PRODUCT_CODE:</pc:rules>   
+              <pc:rules>#  reason = f"DEBUG: Create()->IsPremiumName()->PopulateFeeCheckExtension(): DOMAIN PRODUCT_CODE MUST BE '{PREMIUM_NAME_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+              <pc:rules>#  log.warning(reason)</pc:rules>
+              <pc:rules>#  raise EPPError(2308, reason=reason)</pc:rules>
+              <pc:rules>#  </pc:rules>
               <pc:rules>PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=PRODUCT_CODE, defaultZone=None, defaultAction=None, orderDesc=False)</pc:rules>
               <pc:rules>FeesCommands.create(description='domain:create; refundable in addPeriod', applied='immediate', productCode=PRODUCT_CODE, gracePeriod='P5D', exVat=True, refundable=True, includePeriod=True, throw=False, currencyOverride=None)</pc:rules>
             </pc:children>
@@ -244,18 +244,18 @@
               <pc:rules>if PolicyExec.getRegistrar() not in NonBillableRegistrars:</pc:rules>
               <pc:rules>  if PolicyExec.dateCompare(SALE_START, grain="day", result=(True, True, False)) and PolicyExec.dateCompare(SALE_END, grain="day", result=(False, True, True)) and PolicyExec.payloadContains("//domain:period[@unit='y' and text()='1']"):</pc:rules>
               <pc:rules>    PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='sale')</pc:rules>
-              <pc:rules>    if PRODUCT_CODE != SALE_PRODUCT_CODE:</pc:rules>   
-              <pc:rules>      reason = f"DEBUG: AccountChargeCheck(): DOMAIN PRODUCT_CODE MUST BE '{SALE_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-              <pc:rules>      log.warning(reason)</pc:rules>
-              <pc:rules>      raise EPPError(2308, reason=reason)</pc:rules>
-              <pc:rules>    </pc:rules>
+              <pc:rules>    #if PRODUCT_CODE != SALE_PRODUCT_CODE:</pc:rules>   
+              <pc:rules>    #  reason = f"DEBUG: AccountChargeCheck(): DOMAIN PRODUCT_CODE MUST BE '{SALE_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+              <pc:rules>    #  log.warning(reason)</pc:rules>
+              <pc:rules>    #  raise EPPError(2308, reason=reason)</pc:rules>
+              <pc:rules>    #</pc:rules>
               <pc:rules>  else:</pc:rules>
               <pc:rules>    PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='new')</pc:rules>
-              <pc:rules>    if PRODUCT_CODE != REGISTRATION_PRODUCT_CODE:</pc:rules>   
-              <pc:rules>      reason = f"DEBUG: AccountChargeCheck(): DOMAIN PRODUCT_CODE MUST BE '{REGISTRATION_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-              <pc:rules>      log.warning(reason)</pc:rules>
-              <pc:rules>      raise EPPError(2308, reason=reason)</pc:rules>
-              <pc:rules>    </pc:rules>
+              <pc:rules>    #if PRODUCT_CODE != REGISTRATION_PRODUCT_CODE:</pc:rules>   
+              <pc:rules>    #  reason = f"DEBUG: AccountChargeCheck(): DOMAIN PRODUCT_CODE MUST BE '{REGISTRATION_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+              <pc:rules>    #  log.warning(reason)</pc:rules>
+              <pc:rules>    #  raise EPPError(2308, reason=reason)</pc:rules>
+              <pc:rules>    #</pc:rules>
               <pc:rules>  Accounts.chargeCheck(PRODUCT_CODE)</pc:rules>
             </pc:children>
             <pc:children pc:name="FeeExtensionCheck">
@@ -264,18 +264,18 @@
               <pc:rules>if ContactPolicy.checkRegistrarSupport('fee'):</pc:rules>
               <pc:rules>  if PolicyExec.dateCompare(SALE_START, grain="day", result=(True, True, False)) and PolicyExec.dateCompare(SALE_END, grain="day", result=(False, True, True)) and PolicyExec.payloadContains("//domain:period[@unit='y' and text()='1']"):</pc:rules>
               <pc:rules>    PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='sale')</pc:rules>
-              <pc:rules>    if PRODUCT_CODE != SALE_PRODUCT_CODE:</pc:rules>   
-              <pc:rules>      reason = f"DEBUG: FeeExtensionCheck(): DOMAIN PRODUCT_CODE MUST BE '{SALE_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-              <pc:rules>      log.warning(reason)</pc:rules>
-              <pc:rules>      raise EPPError(2308, reason=reason)</pc:rules>
-              <pc:rules>    </pc:rules>
+              <pc:rules>    #if PRODUCT_CODE != SALE_PRODUCT_CODE:</pc:rules>   
+              <pc:rules>    #  reason = f"DEBUG: FeeExtensionCheck(): DOMAIN PRODUCT_CODE MUST BE '{SALE_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+              <pc:rules>    #  log.warning(reason)</pc:rules>
+              <pc:rules>    #  raise EPPError(2308, reason=reason)</pc:rules>
+              <pc:rules>    #</pc:rules>
               <pc:rules>  else:</pc:rules>
               <pc:rules>    PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='new')</pc:rules>
-              <pc:rules>    if PRODUCT_CODE != REGISTRATION_PRODUCT_CODE:</pc:rules>   
-              <pc:rules>      reason = f"DEBUG: FeeExtensionCheck(): DOMAIN PRODUCT_CODE MUST BE '{REGISTRATION_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-              <pc:rules>      log.warning(reason)</pc:rules>
-              <pc:rules>      raise EPPError(2308, reason=reason)</pc:rules>
-              <pc:rules>    </pc:rules>
+              <pc:rules>    #if PRODUCT_CODE != REGISTRATION_PRODUCT_CODE:</pc:rules>   
+              <pc:rules>    #  reason = f"DEBUG: FeeExtensionCheck(): DOMAIN PRODUCT_CODE MUST BE '{REGISTRATION_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+              <pc:rules>    #  log.warning(reason)</pc:rules>
+              <pc:rules>    #  raise EPPError(2308, reason=reason)</pc:rules>
+              <pc:rules>    #</pc:rules>
               <pc:rules>  FeesCommands.create(description='domain:create; refundable in addPeriod', applied='immediate',productCode=PRODUCT_CODE, gracePeriod='P5D', exVat=True, includePeriod=True, throw=False, currencyOverride=None)</pc:rules>
             </pc:children>
             <pc:children pc:name="Command:Domain,Create">
@@ -293,11 +293,11 @@
                   <pc:children pc:name="AccountCharge">
                     <pc:rules>try:</pc:rules>
                     <pc:rules>  PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'sale'}, suffix='new')</pc:rules>
-                    <pc:rules>  if PRODUCT_CODE != SALE_PRODUCT_CODE:</pc:rules>   
-                    <pc:rules>    reason = f"DEBUG: FSCharge()->AccountCharge(): DOMAIN PRODUCT_CODE MUST BE '{SALE_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-                    <pc:rules>    log.warning(reason)</pc:rules>
-                    <pc:rules>    raise EPPError(2308, reason=reason)</pc:rules>
-                    <pc:rules>    </pc:rules>
+                    <pc:rules>  #if PRODUCT_CODE != SALE_PRODUCT_CODE:</pc:rules>   
+                    <pc:rules>  #  reason = f"DEBUG: FSCharge()->AccountCharge(): DOMAIN PRODUCT_CODE MUST BE '{SALE_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+                    <pc:rules>  #  log.warning(reason)</pc:rules>
+                    <pc:rules>  #  raise EPPError(2308, reason=reason)</pc:rules>
+                    <pc:rules>  #  </pc:rules>
                     <pc:rules>  if Accounts.chargeCheck(PRODUCT_CODE, throw=False):</pc:rules>
                     <pc:rules>    Accounts.charge(PRODUCT_CODE)</pc:rules>
                     <pc:rules></pc:rules>
@@ -316,11 +316,11 @@
                   <pc:children pc:name="AccountCharge">
                     <pc:rules>try:</pc:rules>
                     <pc:rules>  PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='new')</pc:rules>
-                    <pc:rules>  if PRODUCT_CODE != REGISTRATION_PRODUCT_CODE:</pc:rules>   
-                    <pc:rules>    reason = f"DEBUG: AccountCharge(): DOMAIN PRODUCT_CODE MUST BE '{REGISTRATION_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-                    <pc:rules>    log.warning(reason)</pc:rules>
-                    <pc:rules>    raise EPPError(2308, reason=reason)</pc:rules>
-                    <pc:rules>  </pc:rules>
+                    <pc:rules>  #if PRODUCT_CODE != REGISTRATION_PRODUCT_CODE:</pc:rules>   
+                    <pc:rules>  #  reason = f"DEBUG: AccountCharge(): DOMAIN PRODUCT_CODE MUST BE '{REGISTRATION_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+                    <pc:rules>  #  log.warning(reason)</pc:rules>
+                    <pc:rules>  #  raise EPPError(2308, reason=reason)</pc:rules>
+                    <pc:rules>  #</pc:rules>
                     <pc:rules>  if Accounts.chargeCheck(PRODUCT_CODE, throw=False):</pc:rules>
                     <pc:rules>    Accounts.charge(PRODUCT_CODE)</pc:rules>
                     <pc:rules></pc:rules>
@@ -342,18 +342,18 @@
               <pc:rules>if ContactPolicy.checkRegistrarSupport('fee'):</pc:rules>
               <pc:rules>  if PolicyExec.dateCompare(SALE_START, grain="day", result=(True, True, False)) and PolicyExec.dateCompare(SALE_END, grain="day", result=(False, True, True)) and PolicyExec.payloadContains("//domain:period[@unit='y' and text()='1']"):</pc:rules>
               <pc:rules>    PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'sale'}, suffix='new')</pc:rules>
-              <pc:rules>    if PRODUCT_CODE != SALE_PRODUCT_CODE:</pc:rules>
-              <pc:rules>      reason = f"DEBUG: PopulateFeeCheckExtension(): DOMAIN PRODUCT_CODE MUST BE '{SALE_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-              <pc:rules>      log.warning(reason)</pc:rules>
-              <pc:rules>      raise EPPError(2308, reason=reason)</pc:rules>
-              <pc:rules>    </pc:rules>
+              <pc:rules>    #if PRODUCT_CODE != SALE_PRODUCT_CODE:</pc:rules>
+              <pc:rules>    #  reason = f"DEBUG: PopulateFeeCheckExtension(): DOMAIN PRODUCT_CODE MUST BE '{SALE_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+              <pc:rules>    #  log.warning(reason)</pc:rules>
+              <pc:rules>    #  raise EPPError(2308, reason=reason)</pc:rules>
+              <pc:rules>    #</pc:rules>
               <pc:rules>  else:</pc:rules>
               <pc:rules>    PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='new')</pc:rules>
-              <pc:rules>    if PRODUCT_CODE != REGISTRATION_PRODUCT_CODE:</pc:rules>   
-              <pc:rules>      reason = f"DEBUG: PopulateFeeCheckExtension(): DOMAIN PRODUCT_CODE MUST BE '{REGISTRATION_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-              <pc:rules>      log.warning(reason)</pc:rules>
-              <pc:rules>      raise EPPError(2308, reason=reason)</pc:rules>
-              <pc:rules>    </pc:rules>
+              <pc:rules>    #if PRODUCT_CODE != REGISTRATION_PRODUCT_CODE:</pc:rules>   
+              <pc:rules>    #  reason = f"DEBUG: PopulateFeeCheckExtension(): DOMAIN PRODUCT_CODE MUST BE '{REGISTRATION_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+              <pc:rules>    #  log.warning(reason)</pc:rules>
+              <pc:rules>    #  raise EPPError(2308, reason=reason)</pc:rules>
+              <pc:rules>    #</pc:rules>
               <pc:rules>  FeesCommands.create(description='domain:create; refundable in addPeriod', applied='immediate',productCode=PRODUCT_CODE, gracePeriod='P5D', exVat=True, includePeriod=True, throw=False, currencyOverride=None)</pc:rules>
             </pc:children>
             <pc:children pc:name="SetResponse">
@@ -395,11 +395,11 @@
               <pc:children pc:name="Accounting">
                 <pc:rules>if PolicyExec.getRegistrar() not in NonBillableRegistrars:</pc:rules>
                 <pc:rules>  PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='new')</pc:rules>
-                <pc:rules>  if PRODUCT_CODE != REGISTRATION_PRODUCT_CODE:</pc:rules>   
-                <pc:rules>    reason = f"DEBUG: GracePeriodCheck()->InGracePeriod()->Accounting(): DOMAIN PRODUCT_CODE MUST BE '{REGISTRATION_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-                <pc:rules>    log.warning(reason)</pc:rules>
-                <pc:rules>    raise EPPError(2308, reason=reason)</pc:rules>
-                <pc:rules>    </pc:rules>
+                <pc:rules>  #if PRODUCT_CODE != REGISTRATION_PRODUCT_CODE:</pc:rules>   
+                <pc:rules>  #  reason = f"DEBUG: GracePeriodCheck()->InGracePeriod()->Accounting(): DOMAIN PRODUCT_CODE MUST BE '{REGISTRATION_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+                <pc:rules>  #  log.warning(reason)</pc:rules>
+                <pc:rules>  #  raise EPPError(2308, reason=reason)</pc:rules>
+                <pc:rules>  #  </pc:rules>
                 <pc:rules>  if DomainPolicy.isAGPCompliant(gracePeriod='5 days', minCount=50, netCreates=0.10, exemptions={}):</pc:rules>
                 <pc:rules>    if RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170,8190]):</pc:rules>
                 <pc:rules>      log.warning("DOMAIN IDENTIFIED IN PREMIUM LIST")</pc:rules>
@@ -415,20 +415,20 @@
                 <pc:rules>    else:</pc:rules>
                 <pc:rules>      if DomainPolicy.wasCreatedBetween("2016-03-22","2016-03-22", grain='day'):</pc:rules>
                 <pc:rules>        PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'sale'}, suffix='new')</pc:rules>
-                <pc:rules>        if PRODUCT_CODE != SALE_PRODUCT_CODE:</pc:rules>   
-                <pc:rules>          reason = f"DEBUG: Delete()->GracePeriodCheck()->InGracePeriod()->Accounting(): DOMAIN PRODUCT_CODE MUST BE '{SALE_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-                <pc:rules>          log.warning(reason)</pc:rules>
-                <pc:rules>          raise EPPError(2308, reason=reason)</pc:rules>
-                <pc:rules>          </pc:rules>
+                <pc:rules>        #if PRODUCT_CODE != SALE_PRODUCT_CODE:</pc:rules>   
+                <pc:rules>        #  reason = f"DEBUG: Delete()->GracePeriodCheck()->InGracePeriod()->Accounting(): DOMAIN PRODUCT_CODE MUST BE '{SALE_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+                <pc:rules>        #  log.warning(reason)</pc:rules>
+                <pc:rules>        #  raise EPPError(2308, reason=reason)</pc:rules>
+                <pc:rules>        #  </pc:rules>
                 <pc:rules>        Accounts.refund(PRODUCT_CODE)</pc:rules>
                 <pc:rules>      else:</pc:rules>
                 <pc:rules>#retrieve the last charged price to ensure that we refund correctly</pc:rules>
                 <pc:rules>        try:</pc:rules>
                 <pc:rules>          PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='new')</pc:rules>
-                <pc:rules>          if PRODUCT_CODE != REGISTRATION_PRODUCT_CODE:</pc:rules>   
-                <pc:rules>            reason = f"DEBUG: Delete()->GracePeriodCheck()->InGracePeriod()->Accounting(): DOMAIN PRODUCT_CODE MUST BE '{REGISTRATION_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-                <pc:rules>            log.warning(reason)</pc:rules>
-                <pc:rules>            raise EPPError(2308, reason=reason)</pc:rules>
+                <pc:rules>          #if PRODUCT_CODE != REGISTRATION_PRODUCT_CODE:</pc:rules>   
+                <pc:rules>          #  reason = f"DEBUG: Delete()->GracePeriodCheck()->InGracePeriod()->Accounting(): DOMAIN PRODUCT_CODE MUST BE '{REGISTRATION_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+                <pc:rules>          #  log.warning(reason)</pc:rules>
+                <pc:rules>          #  raise EPPError(2308, reason=reason)</pc:rules>
                 <pc:rules>    </pc:rules>
                 <pc:rules>          prodCost=Accounts.getLastChargedPrice(productcode=PRODUCT_CODE, domain=PolicyExec.getObjectName())</pc:rules>
                 <pc:rules>          Accounts.refund(productcode=PRODUCT_CODE, prodcost=prodCost)</pc:rules>
@@ -508,11 +508,11 @@
         <pc:rules>  else:</pc:rules>
         <pc:rules>    log.warning("DOMAIN NOT IN PREMIUM LIST")</pc:rules>
         <pc:rules>    PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='renew')</pc:rules>
-        <pc:rules>    if PRODUCT_CODE != RENEWAL_PRODUCT_CODE:</pc:rules>
-        <pc:rules>      reason = f"DEBUG: PendingRedemption()->GracePeriodCheckRefund(): DOMAIN PRODUCT_CODE MUST BE '{RENEWAL_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-        <pc:rules>      log.warning(reason)</pc:rules>
-        <pc:rules>      raise EPPError(2308, reason=reason)</pc:rules>
-        <pc:rules>    </pc:rules>
+        <pc:rules>    #if PRODUCT_CODE != RENEWAL_PRODUCT_CODE:</pc:rules>
+        <pc:rules>    #  reason = f"DEBUG: PendingRedemption()->GracePeriodCheckRefund(): DOMAIN PRODUCT_CODE MUST BE '{RENEWAL_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+        <pc:rules>    #  log.warning(reason)</pc:rules>
+        <pc:rules>    #  raise EPPError(2308, reason=reason)</pc:rules>
+        <pc:rules>    #</pc:rules>
         <pc:rules>#retrieve the last charged price to ensure that we refund correctly</pc:rules>
         <pc:rules>  log.warning("PRODUCT CODE IS: %s" % PRODUCT_CODE)</pc:rules>
         <pc:rules>  try:</pc:rules>
@@ -628,19 +628,19 @@
         <pc:rules>  if RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170]):</pc:rules>
         <pc:rules>#make sure we get the renewal product code</pc:rules>
         <pc:rules>    PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='renew')</pc:rules>
-        <pc:rules>    if PRODUCT_CODE != RENEWAL_PRODUCT_CODE:</pc:rules>   
-        <pc:rules>      reason = f"DEBUG: PendingTransferFSCharge()->AccountCharge(): DOMAIN PRODUCT_CODE_DEFAULT MUST BE '{RENEWAL_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-        <pc:rules>      log.warning(reason)</pc:rules>
-        <pc:rules>      raise EPPError(2308, reason=reason)</pc:rules>
-        <pc:rules>    </pc:rules>
+        <pc:rules>    #if PRODUCT_CODE != RENEWAL_PRODUCT_CODE:</pc:rules>   
+        <pc:rules>    #  reason = f"DEBUG: PendingTransferFSCharge()->AccountCharge(): DOMAIN PRODUCT_CODE_DEFAULT MUST BE '{RENEWAL_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+        <pc:rules>    #  log.warning(reason)</pc:rules>
+        <pc:rules>    #  raise EPPError(2308, reason=reason)</pc:rules>
+        <pc:rules>    #</pc:rules>
         <pc:rules>    PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=PRODUCT_CODE, defaultZone=None, defaultAction='renew', orderDesc=False, eppCommandMapping={'transfer_request':'renew'})</pc:rules>
         <pc:rules>  else:</pc:rules>
         <pc:rules>    PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='renew')</pc:rules>
-        <pc:rules>    if PRODUCT_CODE != RENEWAL_PRODUCT_CODE:</pc:rules>   
-        <pc:rules>      reason = f"DEBUG: PendingTransferFSCharge()->AccountCharge(): DOMAIN PRODUCT_CODE MUST BE '{RENEWAL_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-        <pc:rules>      log.warning(reason)</pc:rules>
-        <pc:rules>      raise EPPError(2308, reason=reason)</pc:rules>
-        <pc:rules>    </pc:rules>
+        <pc:rules>    #if PRODUCT_CODE != RENEWAL_PRODUCT_CODE:</pc:rules>   
+        <pc:rules>    #  reason = f"DEBUG: PendingTransferFSCharge()->AccountCharge(): DOMAIN PRODUCT_CODE MUST BE '{RENEWAL_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+        <pc:rules>    #  log.warning(reason)</pc:rules>
+        <pc:rules>    #  raise EPPError(2308, reason=reason)</pc:rules>
+        <pc:rules>    #</pc:rules>
         <pc:rules>    if Accounts.chargeCheck(PRODUCT_CODE, throw=False):</pc:rules>
         <pc:rules>      Accounts.charge(PRODUCT_CODE)</pc:rules>
         <pc:rules>    else:</pc:rules>
@@ -690,11 +690,11 @@
                 <pc:rules>  raise EPPError(2003, "Fee extension registration required to renew premium names")</pc:rules>
                 <pc:rules>elif ContactPolicy.checkRegistrarSupport('fee'):</pc:rules>
                 <pc:rules>  PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='renew')</pc:rules>
-                <pc:rules>  if PRODUCT_CODE != RENEWAL_PRODUCT_CODE:</pc:rules>   
-                <pc:rules>    reason = f"DEBUG: Renew()->PhaseCheck()->ChargeCheck(): DOMAIN PRODUCT_CODE MUST BE '{RENEWAL_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-                <pc:rules>    log.warning(reason)</pc:rules>
-                <pc:rules>    raise EPPError(2308, reason=reason)</pc:rules>
-                <pc:rules>    </pc:rules>
+                <pc:rules>  #if PRODUCT_CODE != RENEWAL_PRODUCT_CODE:</pc:rules>   
+                <pc:rules>  #  reason = f"DEBUG: Renew()->PhaseCheck()->ChargeCheck(): DOMAIN PRODUCT_CODE MUST BE '{RENEWAL_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+                <pc:rules>  #  log.warning(reason)</pc:rules>
+                <pc:rules>  #  raise EPPError(2308, reason=reason)</pc:rules>
+                <pc:rules>  #  </pc:rules>
                 <pc:rules>  if RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170]):</pc:rules>
                 <pc:rules>    PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=PRODUCT_CODE, defaultZone=None, defaultAction=None, orderDesc=False)</pc:rules>
                 <pc:rules>    FeesCommands.renew(description='domain:renew; refundable in renewPeriod', applied='immediate', productCode=PRODUCT_CODE, gracePeriod='P5D', exVat=True, includePeriod=True, throw=True, currencyOverride=None)</pc:rules>
@@ -709,11 +709,11 @@
               <pc:children pc:name="AccountCheck">
                 <pc:rules>#Perform an account check</pc:rules>
                 <pc:rules>PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='renew')</pc:rules>
-                <pc:rules>if PRODUCT_CODE != RENEWAL_PRODUCT_CODE:</pc:rules>   
-                <pc:rules>  reason = f"DEBUG: Renew()->PhaseCheck()->RenewalCommands()->AccountCheck(): DOMAIN PRODUCT_CODE MUST BE '{RENEWAL_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-                <pc:rules>  log.warning(reason)</pc:rules>
-                <pc:rules>  raise EPPError(2308, reason=reason)</pc:rules>
-                <pc:rules>  </pc:rules>
+                <pc:rules>#if PRODUCT_CODE != RENEWAL_PRODUCT_CODE:</pc:rules>   
+                <pc:rules>#  reason = f"DEBUG: Renew()->PhaseCheck()->RenewalCommands()->AccountCheck(): DOMAIN PRODUCT_CODE MUST BE '{RENEWAL_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+                <pc:rules>#  log.warning(reason)</pc:rules>
+                <pc:rules>#  raise EPPError(2308, reason=reason)</pc:rules>
+                <pc:rules>#  </pc:rules>
                 <pc:rules>if PolicyExec.getRegistrar() not in NonBillableRegistrars and not RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170]):</pc:rules>
                 <pc:rules>  Accounts.chargeCheck(PRODUCT_CODE)</pc:rules>
                 <pc:rules>elif PolicyExec.getRegistrar() not in NonBillableRegistrars:</pc:rules>
@@ -725,11 +725,11 @@
               </pc:children>
               <pc:children pc:name="AccountCommit">
                 <pc:rules>PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='renew')</pc:rules>
-                <pc:rules>if PRODUCT_CODE != RENEWAL_PRODUCT_CODE:</pc:rules>   
-                <pc:rules>  reason = f"DEBUG: Renew()->PhaseCheck()->AccountCommit(): DOMAIN PRODUCT_CODE MUST BE '{RENEWAL_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-                <pc:rules>  log.warning(reason)</pc:rules>
-                <pc:rules>  raise EPPError(2308, reason=reason)</pc:rules>
-                <pc:rules>  </pc:rules>
+                <pc:rules>#if PRODUCT_CODE != RENEWAL_PRODUCT_CODE:</pc:rules>   
+                <pc:rules>#  reason = f"DEBUG: Renew()->PhaseCheck()->AccountCommit(): DOMAIN PRODUCT_CODE MUST BE '{RENEWAL_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+                <pc:rules>#  log.warning(reason)</pc:rules>
+                <pc:rules>#  raise EPPError(2308, reason=reason)</pc:rules>
+                <pc:rules>#  </pc:rules>
                 <pc:rules>if PolicyExec.getRegistrar() not in NonBillableRegistrars and not RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170]):</pc:rules>
                 <pc:rules>  Accounts.charge(PRODUCT_CODE)</pc:rules>
                 <pc:rules>elif PolicyExec.getRegistrar() not in NonBillableRegistrars:</pc:rules>
@@ -742,11 +742,11 @@
                 <pc:rules>  raise EPPError(2201, "Fee extension registration required to renew premium names")</pc:rules>
                 <pc:rules>elif ContactPolicy.checkRegistrarSupport('fee'):</pc:rules>
                 <pc:rules>  PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='renew')</pc:rules>
-                <pc:rules>  if PRODUCT_CODE != RENEWAL_PRODUCT_CODE:</pc:rules>   
-                <pc:rules>    reason = f"DEBUG: Renew()->PhaseCheck()->CheckChargeSupport(): DOMAIN PRODUCT_CODE MUST BE '{RENEWAL_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-                <pc:rules>    log.warning(reason)</pc:rules>
-                <pc:rules>    raise EPPError(2308, reason=reason)</pc:rules>
-                <pc:rules>  </pc:rules>
+                <pc:rules>  #if PRODUCT_CODE != RENEWAL_PRODUCT_CODE:</pc:rules>   
+                <pc:rules>  #  reason = f"DEBUG: Renew()->PhaseCheck()->CheckChargeSupport(): DOMAIN PRODUCT_CODE MUST BE '{RENEWAL_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+                <pc:rules>  #  log.warning(reason)</pc:rules>
+                <pc:rules>  #  raise EPPError(2308, reason=reason)</pc:rules>
+                <pc:rules>  #</pc:rules>
                 <pc:rules>  if RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170]):</pc:rules>
                 <pc:rules>    PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=PRODUCT_CODE, defaultZone=None, defaultAction=None, orderDesc=False)</pc:rules>
                 <pc:rules></pc:rules>
@@ -846,11 +846,11 @@
               <pc:rules>  raise EPPError(2003, "Fee extension registration required to transfer premium names")</pc:rules>
               <pc:rules>elif ContactPolicy.checkRegistrarSupport('fee'):</pc:rules>
               <pc:rules>  PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='renew')</pc:rules>
-              <pc:rules>  if PRODUCT_CODE != RENEWAL_PRODUCT_CODE:</pc:rules>   
-              <pc:rules>    reason = f"DEBUG: Transfer_Request()->PhaseCheck()->InitialChargeCheckSupport(): DOMAIN PRODUCT_CODE MUST BE '{RENEWAL_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-              <pc:rules>    log.warning(reason)</pc:rules>
-              <pc:rules>    raise EPPError(2308, reason=reason)</pc:rules>
-              <pc:rules>    </pc:rules>
+              <pc:rules>  #if PRODUCT_CODE != RENEWAL_PRODUCT_CODE:</pc:rules>   
+              <pc:rules>  #  reason = f"DEBUG: Transfer_Request()->PhaseCheck()->InitialChargeCheckSupport(): DOMAIN PRODUCT_CODE MUST BE '{RENEWAL_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+              <pc:rules>  #  log.warning(reason)</pc:rules>
+              <pc:rules>  #  raise EPPError(2308, reason=reason)</pc:rules>
+              <pc:rules>  #  </pc:rules>
               <pc:rules>  if RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170]):</pc:rules>
               <pc:rules>    PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=PRODUCT_CODE, defaultZone=None, defaultAction=None, orderDesc=False, eppCommandMapping={'transfer_request':'renew'})</pc:rules>
               <pc:rules>    FeesCommands.renew(description='domain:renew; refundable in transferPeriod', applied='delayed', productCode=PRODUCT_CODE, gracePeriod='P5D', exVat=True, refundable=True, includePeriod=True, throw=True, currencyOverride=None)</pc:rules>
@@ -868,11 +868,11 @@
               <pc:rules>#NB CHECK FOR PREMIUM RENEW COST ON TRANSFER</pc:rules>
               <pc:rules>if ContactPolicy.checkRegistrarSupport('fee'):</pc:rules>
               <pc:rules>  PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='renew')</pc:rules>
-              <pc:rules>  if PRODUCT_CODE != RENEWAL_PRODUCT_CODE:</pc:rules>   
-              <pc:rules>    reason = f"DEBUG: TransferRequest()->PhaseCheck()->CheckChargeSupport(): DOMAIN PRODUCT_CODE MUST BE '{RENEWAL_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-              <pc:rules>    log.warning(reason)</pc:rules>
-              <pc:rules>    raise EPPError(2308, reason=reason)</pc:rules>
-              <pc:rules>    </pc:rules>
+              <pc:rules>  #if PRODUCT_CODE != RENEWAL_PRODUCT_CODE:</pc:rules>   
+              <pc:rules>  #  reason = f"DEBUG: TransferRequest()->PhaseCheck()->CheckChargeSupport(): DOMAIN PRODUCT_CODE MUST BE '{RENEWAL_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+              <pc:rules>  #  log.warning(reason)</pc:rules>
+              <pc:rules>  #  raise EPPError(2308, reason=reason)</pc:rules>
+              <pc:rules>  #  </pc:rules>
               <pc:rules>  if RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170]):</pc:rules>
               <pc:rules>    PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=PRODUCT_CODE, defaultZone=None, defaultAction=None, orderDesc=False, eppCommandMapping={'transfer_request':'renew'})</pc:rules>
               <pc:rules></pc:rules>
@@ -1010,11 +1010,11 @@
             <pc:children pc:name="ChargeCheckSupport">
               <pc:rules>if ContactPolicy.checkRegistrarSupport('fee'):</pc:rules>
               <pc:rules>  PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='renew')</pc:rules>
-              <pc:rules>  if PRODUCT_CODE != RENEWAL_PRODUCT_CODE:</pc:rules>   
-              <pc:rules>    reason = f"DEBUG: Transfer_Query()->PhaseCheck()->CheckChargeSupport(): DOMAIN PRODUCT_CODE MUST BE '{RENEWAL_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-              <pc:rules>    log.warning(reason)</pc:rules>
-              <pc:rules>    raise EPPError(2308, reason=reason)</pc:rules>
-              <pc:rules>    </pc:rules>
+              <pc:rules>  #if PRODUCT_CODE != RENEWAL_PRODUCT_CODE:</pc:rules>   
+              <pc:rules>  #  reason = f"DEBUG: Transfer_Query()->PhaseCheck()->CheckChargeSupport(): DOMAIN PRODUCT_CODE MUST BE '{RENEWAL_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+              <pc:rules>  #  log.warning(reason)</pc:rules>
+              <pc:rules>  #  raise EPPError(2308, reason=reason)</pc:rules>
+              <pc:rules>  #  </pc:rules>
               <pc:rules>  if RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170]):</pc:rules>
               <pc:rules>    PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=PRODUCT_CODE, defaultZone=None, defaultAction='renew', orderDesc=False)</pc:rules>
               <pc:rules></pc:rules>
@@ -1051,11 +1051,11 @@
         <pc:rules>if DomainPolicy.checkStatusWasCreatedWithinXofTimerTrigger('pendingTransfer', '45 days', 'Auto_Renew'):</pc:rules>
         <pc:rules>  if PolicyExec.getRegistrar() not in NonBillableRegistrars:</pc:rules>
         <pc:rules>    PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='renew')</pc:rules>
-        <pc:rules>    if PRODUCT_CODE != RENEWAL_PRODUCT_CODE:</pc:rules>   
-        <pc:rules>      reason = f"DEBUG: Renew()->PhaseCheck()->RenewalCommands()->AccountCheck(): DOMAIN PRODUCT_CODE MUST BE '{RENEWAL_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-        <pc:rules>      log.warning(reason)</pc:rules>
-        <pc:rules>      raise EPPError(2308, reason=reason)</pc:rules>
-        <pc:rules>    </pc:rules>
+        <pc:rules>    #if PRODUCT_CODE != RENEWAL_PRODUCT_CODE:</pc:rules>   
+        <pc:rules>    #  reason = f"DEBUG: Renew()->PhaseCheck()->RenewalCommands()->AccountCheck(): DOMAIN PRODUCT_CODE MUST BE '{RENEWAL_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+        <pc:rules>    #  log.warning(reason)</pc:rules>
+        <pc:rules>    #  raise EPPError(2308, reason=reason)</pc:rules>
+        <pc:rules>    #</pc:rules>
         <pc:rules>    if RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170,8190]):</pc:rules>
         <pc:rules>#make sure we get the renewal product code</pc:rules>
         <pc:rules>      log.warning("DOMAIN IDENTIFIED IN PREMIUM LIST")</pc:rules>
@@ -1084,11 +1084,11 @@
         <pc:rules>#attempts to increase the registration period by 1 year if possible</pc:rules>
         <pc:rules># This is from RefundCheck above. Don't increase the year if it was in autoRenewPeriod</pc:rules>
         <pc:rules>PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='renew')</pc:rules>
-        <pc:rules>if PRODUCT_CODE != RENEWAL_PRODUCT_CODE:</pc:rules>   
-        <pc:rules>  reason = f"DEBUG: PendingTransferUpdate()->IncreaseRegPeriod(): DOMAIN PRODUCT_CODE MUST BE '{RENEWAL_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-        <pc:rules>  log.warning(reason)</pc:rules>
-        <pc:rules>  raise EPPError(2308, reason=reason)</pc:rules>
-        <pc:rules>  </pc:rules>
+        <pc:rules>#if PRODUCT_CODE != RENEWAL_PRODUCT_CODE:</pc:rules>   
+        <pc:rules>#  reason = f"DEBUG: PendingTransferUpdate()->IncreaseRegPeriod(): DOMAIN PRODUCT_CODE MUST BE '{RENEWAL_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+        <pc:rules>#  log.warning(reason)</pc:rules>
+        <pc:rules>#  raise EPPError(2308, reason=reason)</pc:rules>
+        <pc:rules>#  </pc:rules>
         <pc:rules>if DomainPolicy.checkStatusWasCreatedWithinXofTimerTrigger('pendingTransfer', '45 days', 'Auto_Renew'):</pc:rules>
         <pc:rules>  if PolicyExec.getRegistrar() not in NonBillableRegistrars:</pc:rules>
         <pc:rules>    if RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170]):</pc:rules>
@@ -1185,11 +1185,11 @@
                   </pc:children>
                   <pc:children pc:name="ChargeCheckSupport">
                   <pc:rules>PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='restore')</pc:rules>
-                  <pc:rules>if PRODUCT_CODE != RESTORE_PRODUCT_CODE:</pc:rules>   
-                  <pc:rules>  reason = f"DEBUG: Update()->ChargeCheckSupport(): DOMAIN PRODUCT_CODE MUST BE '{RESTORE_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-                  <pc:rules>  log.warning(reason)</pc:rules>
-                  <pc:rules>  raise EPPError(2308, reason=reason)</pc:rules>
-                  <pc:rules>  </pc:rules>
+                  <pc:rules>#if PRODUCT_CODE != RESTORE_PRODUCT_CODE:</pc:rules>   
+                  <pc:rules>#  reason = f"DEBUG: Update()->ChargeCheckSupport(): DOMAIN PRODUCT_CODE MUST BE '{RESTORE_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+                  <pc:rules>#  log.warning(reason)</pc:rules>
+                  <pc:rules>#  raise EPPError(2308, reason=reason)</pc:rules>
+                  <pc:rules>#  </pc:rules>
                     <pc:rules>if RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170]):</pc:rules>
                     <pc:rules>#make sure we get the renewal product code</pc:rules>
                     <pc:rules>  PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=PRODUCT_CODE, defaultZone=None, defaultAction='restore', orderDesc=False)</pc:rules>
@@ -1236,11 +1236,11 @@
                       <pc:children pc:name="BalanceCheck">
                         <pc:rules>if PolicyExec.getRegistrar() not in NonBillableRegistrars:</pc:rules>
                         <pc:rules>  PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='restore')</pc:rules>
-                        <pc:rules>  if PRODUCT_CODE != RESTORE_PRODUCT_CODE:</pc:rules>   
-                        <pc:rules>    reason = f"DEBUG: Update()->PhaseCHeck()->BalanceCheck(): DOMAIN PRODUCT_CODE MUST BE '{RESTORE_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-                        <pc:rules>    log.warning(reason)</pc:rules>
-                        <pc:rules>    raise EPPError(2308, reason=reason)</pc:rules>
-                        <pc:rules>    </pc:rules>
+                        <pc:rules>  #if PRODUCT_CODE != RESTORE_PRODUCT_CODE:</pc:rules>   
+                        <pc:rules>  #  reason = f"DEBUG: Update()->PhaseCHeck()->BalanceCheck(): DOMAIN PRODUCT_CODE MUST BE '{RESTORE_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+                        <pc:rules>  #  log.warning(reason)</pc:rules>
+                        <pc:rules>  #  raise EPPError(2308, reason=reason)</pc:rules>
+                        <pc:rules>  #  </pc:rules>
                         <pc:rules>  Accounts.chargeCheck(PRODUCT_CODE)</pc:rules>
                       </pc:children>
                       <pc:children pc:name="SetStatusOk">
@@ -1257,11 +1257,11 @@
                       <pc:children pc:name="Accounting">
                         <pc:rules>if PolicyExec.getRegistrar() not in NonBillableRegistrars:</pc:rules>
                         <pc:rules>  PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='restore')</pc:rules>
-                        <pc:rules>  if PRODUCT_CODE != RESTORE_PRODUCT_CODE:</pc:rules>   
-                        <pc:rules>    reason = f"DEBUG: Update()->Accounting(): DOMAIN PRODUCT_CODE MUST BE '{RESTORE_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-                        <pc:rules>    log.warning(reason)</pc:rules>
-                        <pc:rules>    raise EPPError(2308, reason=reason)</pc:rules>
-                        <pc:rules>    </pc:rules>
+                        <pc:rules>  #if PRODUCT_CODE != RESTORE_PRODUCT_CODE:</pc:rules>   
+                        <pc:rules>  #  reason = f"DEBUG: Update()->Accounting(): DOMAIN PRODUCT_CODE MUST BE '{RESTORE_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+                        <pc:rules>  #  log.warning(reason)</pc:rules>
+                        <pc:rules>  #  raise EPPError(2308, reason=reason)</pc:rules>
+                        <pc:rules>  #  </pc:rules>
                         <pc:rules>  Accounts.charge(PRODUCT_CODE)</pc:rules>
                       </pc:children>
                       <pc:children pc:name="SetHostStatus">
@@ -1387,11 +1387,11 @@
       </pc:activities>
       <pc:activities pc:name="AccountCommit">
         <pc:rules>PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='renew')</pc:rules>
-        <pc:rules>if PRODUCT_CODE != RENEWAL_PRODUCT_CODE:</pc:rules>   
-        <pc:rules>  reason = f"DEBUG: Auto_Renew()->AccountCommit(): DOMAIN PRODUCT_CODE MUST BE '{RENEWAL_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-        <pc:rules>  log.warning(reason)</pc:rules>
-        <pc:rules>  raise EPPError(2308, reason=reason)</pc:rules>
-        <pc:rules>  </pc:rules>
+        <pc:rules>#if PRODUCT_CODE != RENEWAL_PRODUCT_CODE:</pc:rules>   
+        <pc:rules>#  reason = f"DEBUG: Auto_Renew()->AccountCommit(): DOMAIN PRODUCT_CODE MUST BE '{RENEWAL_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+        <pc:rules>#  log.warning(reason)</pc:rules>
+        <pc:rules>#  raise EPPError(2308, reason=reason)</pc:rules>
+        <pc:rules>#  </pc:rules>
         <pc:rules>try:</pc:rules>
         <pc:rules>  if PolicyExec.getRegistrar() not in NonBillableRegistrars:</pc:rules>
         <pc:rules>    if RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170]):</pc:rules>
@@ -1440,11 +1440,11 @@
       </pc:activities>
       <pc:activities pc:name="Accounting">
         <pc:rules>PRODUCT_CODE = Accounts.getProductCode(defaultProductCode=None, defaultZone=None, excludeCommand=True, eppCommandMapping={'create': 'new'}, suffix='renew')</pc:rules>
-        <pc:rules>if PRODUCT_CODE != RENEWAL_PRODUCT_CODE:</pc:rules>   
-        <pc:rules>  reason = f"DEBUG: RestoreDomain()->Accounting(): DOMAIN PRODUCT_CODE MUST BE '{RENEWAL_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
-        <pc:rules>  log.warning(reason)</pc:rules>
-        <pc:rules>  raise EPPError(2308, reason=reason)</pc:rules>
-        <pc:rules>  </pc:rules>
+        <pc:rules>#if PRODUCT_CODE != RENEWAL_PRODUCT_CODE:</pc:rules>   
+        <pc:rules>#  reason = f"DEBUG: RestoreDomain()->Accounting(): DOMAIN PRODUCT_CODE MUST BE '{RENEWAL_PRODUCT_CODE}' and is '{PRODUCT_CODE}'"</pc:rules>
+        <pc:rules>#  log.warning(reason)</pc:rules>
+        <pc:rules>#  raise EPPError(2308, reason=reason)</pc:rules>
+        <pc:rules>#  </pc:rules>
         <pc:rules>if RNLPolicy.exists(categoryList=[8100, 8110, 8120, 8130, 8140, 8150,8160,8170]):</pc:rules>
         <pc:rules>  PRODUCT_CODE = RNLPolicy.getReservationProductCode(categoryList=[8100,8110,8120,8130,8140,8150,8160,8170], defaultProductCode=PRODUCT_CODE, defaultZone=None, defaultAction='renew', orderDesc=False)</pc:rules>
         <pc:rules></pc:rules>
